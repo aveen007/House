@@ -1,0 +1,17 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/medical_db
+    username: postgres
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: validate # Используем validate вместо update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+app:
+  insurance:
+    timeout: 5000
