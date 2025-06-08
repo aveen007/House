@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class VisitController {
 
     private final VisitService visitService;
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<?> createVisit(
             @Valid @RequestBody VisitRequest request
@@ -29,7 +30,7 @@ public class VisitController {
                     .body("Error creating patient: " + e.getMessage());
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping(":{visitId}/symptoms")
     public ResponseEntity<?> addSymptomsVisit(
             @PathVariable Integer visitId,

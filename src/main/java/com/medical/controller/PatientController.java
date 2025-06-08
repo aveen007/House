@@ -17,7 +17,7 @@ import java.util.List;
 public class PatientController {
 
     private final PatientService patientService;
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createPatient")
     public ResponseEntity<?> createPatient(
             @Valid @RequestBody PatientRequest request,
@@ -31,7 +31,7 @@ public class PatientController {
                     .body("Error creating patient: " + e.getMessage());
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getPatients")
     public ResponseEntity<?> getAllPatients() {
         try {
@@ -42,7 +42,7 @@ public class PatientController {
                     .body("Error retrieving patients: " + e.getMessage());
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getPatient")
     public ResponseEntity<?> getPatient(@RequestParam Integer patientId) {
         try {
@@ -53,7 +53,7 @@ public class PatientController {
                     .body("Error retrieving patient: " + e.getMessage());
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/updatePatient")
     public ResponseEntity<?> updatePatient(@Valid @RequestBody Patient request) {
         try {
@@ -64,7 +64,7 @@ public class PatientController {
                     .body("Error updating patient: " + e.getMessage());
         }
     }
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deletePatient")
     public ResponseEntity<?> deletePatient(@RequestParam Integer patientId) {
         try {

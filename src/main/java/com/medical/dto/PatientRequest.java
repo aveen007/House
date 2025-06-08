@@ -1,5 +1,6 @@
 package com.medical.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -11,8 +12,7 @@ public class PatientRequest {
 
     @NotBlank
     private String lastName;
-
-    @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
     @NotBlank

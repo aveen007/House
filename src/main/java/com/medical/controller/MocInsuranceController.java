@@ -22,7 +22,7 @@ public class MocInsuranceController {
 
     private final MocInsuranceService mocInsuranceService;
     private final InsuranceCompanyRepository insuranceCompanyRepository;
-
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
     public ResponseEntity<InsuranceCheckResponse> checkInsurance(@Valid @RequestBody InsuranceCheckRequest request) {
 
