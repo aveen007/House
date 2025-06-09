@@ -18,4 +18,6 @@ public class Symptom {
     @Column(name = "symptom_name", nullable = false)
     private String symptomName;
 
+    public Integer getId(){ return id; }
+
 }

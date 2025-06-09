@@ -16,6 +16,7 @@ public class Visit {
     @Column(name = "visit_id")
     private Integer id;
 
+
     @NotNull(message = "patient's id is required")
     @Column(name = "patient_id", nullable = false)
     private Integer patientId;
@@ -30,5 +31,9 @@ public class Visit {
 
     public void setDateOfVisit(LocalDate dateOfVisit) {
         this.dateOfVisit = dateOfVisit;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

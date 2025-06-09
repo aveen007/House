@@ -35,6 +35,10 @@ public class Patient {
     @JoinColumn(name = "insurance_company_id", nullable = false)
     private InsuranceCompany insuranceCompany;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

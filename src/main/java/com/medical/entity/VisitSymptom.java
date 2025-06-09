@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-import com.medical.entity.Visit;
-import com.medical.entity.Symptom;
-
 @Entity
 @Table(name = "visit_symptom")
 @IdClass(VisitSymptom.VisitSymptomId.class)

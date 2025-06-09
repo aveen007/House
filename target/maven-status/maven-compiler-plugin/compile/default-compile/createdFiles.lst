@@ -7,6 +7,7 @@ com\medical\controller\InsuranceCompanyController.class
 com\medical\dto\VisitRequest.class
 com\medical\entity\Visit.class
 com\medical\service\SymptomService.class
+com\medical\dto\BetPatientsResponse.class
 com\medical\entity\PatientInsurance.class
 com\medical\dto\VisitSymptomsRequest.class
 com\medical\entity\VisitSymptom$VisitSymptomId.class
@@ -17,5 +18,6 @@ com\medical\controller\VisitController.class
 com\medical\entity\Symptom.class
 com\medical\service\MocInsuranceService.class
 com\medical\service\InsuranceCompanyService.class
+com\medical\dto\BetRequest.class
 com\medical\dto\InsuranceCheckResponse.class
 com\medical\repository\VisitSymptomRepository.class
