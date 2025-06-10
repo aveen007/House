@@ -16,8 +16,8 @@ import java.util.List;
 public class PatientController {
 
     private final PatientService patientService;
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createPatient")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> createPatient(
             @Valid @RequestBody PatientRequest request,
             @RequestParam(defaultValue = "true") boolean verifyInsurance
@@ -30,8 +30,8 @@ public class PatientController {
                     .body("Error creating patient: " + e.getMessage());
         }
     }
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getPatients")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> getAllPatients() {
         try {
             List<Patient> patients = patientService.getAllPatients();
@@ -41,8 +41,8 @@ public class PatientController {
                     .body("Error retrieving patients: " + e.getMessage());
         }
     }
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getPatient")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> getPatient(@RequestParam Integer patientId) {
         try {
             Patient patient = patientService.getPatient(patientId);
@@ -52,8 +52,8 @@ public class PatientController {
                     .body("Error retrieving patient: " + e.getMessage());
         }
     }
-    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/updatePatient")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> updatePatient(@Valid @RequestBody Patient request) {
         try {
             Patient updatedPatient = patientService.updatePatient(request);
@@ -63,8 +63,8 @@ public class PatientController {
                     .body("Error updating patient: " + e.getMessage());
         }
     }
-    @CrossOrigin(origins = "http://localhost:3000")
     @DeleteMapping("/deletePatient")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<?> deletePatient(@RequestParam Integer patientId) {
         try {
             patientService.deletePatient(patientId);

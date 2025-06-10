@@ -18,8 +18,9 @@ import java.util.List;
 public class InsuranceCompanyController {
 
     private final InsuranceCompanyService insuranceCompanyService;
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping
+    @CrossOrigin(origins = "http://localhost:3000")
+
     public ResponseEntity<?> getAllInsuranceCompanies() {
         try {
             List<InsuranceCompany> companies = insuranceCompanyService.getAllInsuranceCompanies();

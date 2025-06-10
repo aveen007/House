@@ -22,8 +22,8 @@ public class MocInsuranceController {
 
     private final MocInsuranceService mocInsuranceService;
     private final InsuranceCompanyRepository insuranceCompanyRepository;
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<InsuranceCheckResponse> checkInsurance(@Valid @RequestBody InsuranceCheckRequest request) {
 
         InsuranceCompany insuranceCompany = insuranceCompanyRepository.findById(request.getInsuranceCompanyId())
