@@ -2,6 +2,7 @@ package com.medical.service;
 
 import com.medical.dto.BetPatientsResponse;
 import com.medical.dto.BetRequest;
+import com.medical.dto.VisitPatientsResponse;
 import com.medical.entity.*;
 import com.medical.exception.ResourceNotFoundException;
 import com.medical.repository.*;
@@ -61,6 +62,36 @@ public class BetService {
             }
         }
         return  betPatients;
+    }
+    public List<VisitPatientsResponse> getAllVisitPatients() {
+
+        List<VisitPatientsResponse> visitPatients = new ArrayList<>();
+
+        List<Patient> allPatients = patientRepository.findAll();
+
+        for(Patient patient : allPatients)
+        {
+            List<Visit> RecentVisits = visitRepository.findByPatientIdOrderByDateOfVisitDesc(patient.getId());
+            if(!RecentVisits.isEmpty())
+            {
+                Visit recentVisit = RecentVisits.get(0);
+                List<Bet> allBets = betRepository.findByVisitId(recentVisit.getId());
+
+
+                VisitPatientsResponse visitPatient = new VisitPatientsResponse();
+
+                    visitPatient.setId(patient.getId());
+                    visitPatient.setVisitId(recentVisit.getId());
+                    visitPatient.setFirstName(patient.getFirstName());
+                    visitPatient.setLastName(patient.getLastName());
+                    visitPatient.setGender(patient.getGender());
+                    visitPatient.setInsuranceCompany(patient.getInsuranceCompany());
+                    visitPatient.setDateOfBirth(patient.getDateOfBirth());
+                    visitPatients.add(visitPatient);
+
+            }
+        }
+        return  visitPatients;
     }
 
     @Transactional

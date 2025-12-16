@@ -17,8 +17,8 @@ import java.util.List;
 public class SymptomController {
 
     private final SymptomService symptomService;
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getSymptoms")
+    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<Symptom>> getAllSymptoms() {
         List<Symptom> symptoms = symptomService.getSymptoms();
         return ResponseEntity.ok(symptoms);
