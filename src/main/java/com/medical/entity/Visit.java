@@ -25,6 +25,10 @@ public class Visit {
     @Column(name = "date_of_visit", nullable = false)
     private LocalDate dateOfVisit;
 
+    @Column(name = "hd_status", nullable = false)
+    @Convert(converter = VisitHDStatusConverter.class)
+    private VisitHDStatus hdStatus;
+
     public void setPatientId(Integer patientId) {
         this.patientId = patientId;
     }
