@@ -51,7 +51,7 @@ public class VisitService {
     public List<Visit> getAllAcceptedVisits(){
         return visitRepository.findByHdStatusOrderByDateOfVisitDesc(VisitHDStatus.Accepted);
     }
-    
+
     public List<Visit> getAllPatientVisits(Integer patientId){
         return visitRepository.findByPatientIdOrderByDateOfVisitDesc(patientId);
     }
