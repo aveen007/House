@@ -93,6 +93,18 @@ public class AnalysisController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/getApprovedAnalyses")
+    public ResponseEntity<?> getApprovedAnalyses() {
+        try {
+            var patientsAnalyses = analysisService.getApprovedAnalyses();
+            return ResponseEntity.status(HttpStatus.CREATED).body(patientsAnalyses);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Error getting analyses: " + e.getMessage());
+        }
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getBetAnalyses")
     public ResponseEntity<?> getBetAnalyses(
             @RequestParam Integer betId) {
@@ -119,4 +131,11 @@ public class AnalysisController {
                     .body("Error updating status: " + e.getMessage());
         }
     }
+    @CrossOrigin(origins = "http://localhost:3000")
+
+    @GetMapping("/patientAnalyses")
+    public ResponseEntity<List<PatientAnalysis>> getAllPatientAnalyses() {
+        return ResponseEntity.ok(analysisService.getAllPatientAnalyses());
+    }
+
 }

@@ -12,4 +12,6 @@ public interface PatientAnalysisRepository extends JpaRepository<PatientAnalysis
     List<PatientAnalysis> findByPatientId(Integer patientId);
 
     List<PatientAnalysis> findByStatus(AnalysisStatus status);
+    List<PatientAnalysis> findAll();
+
 }

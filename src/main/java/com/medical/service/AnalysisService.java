@@ -90,6 +90,9 @@ public class AnalysisService {
     public List<PatientAnalysis> getAwaitingHDAnalyses() {
         return patientAnalysisRepository.findByStatus(AnalysisStatus.AwaitingHD);
     }
+    public List<PatientAnalysis> getApprovedAnalyses() {
+        return patientAnalysisRepository.findByStatus(AnalysisStatus.Accepted);
+    }
 
     public List<PatientAnalysis> getBetAnalyses(Integer bet_id) {
         Bet existingBet = betRepository.findById(bet_id)
@@ -117,4 +120,8 @@ public class AnalysisService {
             throw new IllegalArgumentException("Analysis with that id doesn't exist");
         }
     }
+    public List<PatientAnalysis> getAllPatientAnalyses() {
+        return patientAnalysisRepository.findAll();
+    }
 }
+

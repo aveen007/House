@@ -30,5 +30,6 @@ public class Analysis {
     public String getTitle(){
         return title;
     }
+
 }
 
