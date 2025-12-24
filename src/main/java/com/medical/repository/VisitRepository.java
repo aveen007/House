@@ -1,6 +1,7 @@
 package com.medical.repository;
 
 import com.medical.entity.Visit;
+import com.medical.entity.VisitHDStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +16,6 @@ public interface VisitRepository extends JpaRepository<Visit, Integer> {
     List<Visit> findByPatientId(Integer patientId);
 
     List<Visit> findByPatientIdOrderByDateOfVisitDesc(Integer patientId);
+
+    List<Visit> findByHdStatusOrderByDateOfVisitDesc(VisitHDStatus status);
 }

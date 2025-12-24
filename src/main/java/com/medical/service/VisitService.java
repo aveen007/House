@@ -1,5 +1,6 @@
 package com.medical.service;
 
+import com.medical.dto.PatientRequest;
 import com.medical.dto.VisitRequest;
 import com.medical.dto.VisitSymptomsRequest;
 import com.medical.entity.*;
@@ -12,6 +13,8 @@ import com.medical.repository.VisitSymptomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,8 +39,30 @@ public class VisitService {
         Visit visit = new Visit();
         visit.setPatientId(request.getPatientId());
         visit.setDateOfVisit(request.getDateOfVisit());
+        visit.setHdStatus(VisitHDStatus.Awaiting);
 
         return visitRepository.save(visit);
+    }
+
+    public List<Visit> getAllHDAwatingVisits(){
+        return visitRepository.findByHdStatusOrderByDateOfVisitDesc(VisitHDStatus.Awaiting);
+    }
+
+    public List<Visit> getAllAcceptedVisits(){
+        return visitRepository.findByHdStatusOrderByDateOfVisitDesc(VisitHDStatus.Accepted);
+    }
+
+    public List<Visit> getAllPatientVisits(Integer patientId){
+        return visitRepository.findByPatientIdOrderByDateOfVisitDesc(patientId);
+    }
+
+    @Transactional
+    public Visit updateVisitHDStatus(Integer visit_id, VisitHDStatus status) {
+        Visit existingVisit = visitRepository.findById(visit_id)
+                .orElseThrow(() -> new ResourceNotFoundException("Visit not found"));
+
+        existingVisit.setHdStatus(status);
+        return visitRepository.save(existingVisit);
     }
 
     @Transactional
