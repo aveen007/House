@@ -4,11 +4,11 @@ spring:
   datasource:
     #url: jdbc:postgresql://localhost:5433/medical_db
     url: jdbc:postgresql://localhost:5432/house_db
-    username: postgres
-    password: 123 #admin
+    username: daniel
+    password: 123
   jpa:
     hibernate:
-      ddl-auto: validate # Используем validate вместо update
+      ddl-auto: update # Временно используем update для синхронизации схемы
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
