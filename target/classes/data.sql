@@ -31,6 +31,19 @@ CREATE TYPE public."AnalysisStatus" AS ENUM (
 
 ALTER TYPE public."AnalysisStatus" OWNER TO postgres;
 
+--
+-- Name: VisitHDStatus; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE public."VisitHDStatus" AS ENUM (
+    'Awaiting',
+    'Accepted',
+    'Rejected'
+);
+
+
+ALTER TYPE public."VisitHDStatus" OWNER TO postgres;
+
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
@@ -364,7 +377,8 @@ ALTER TABLE public.visit_symptom OWNER TO postgres;
 CREATE TABLE public.visits (
     visit_id integer NOT NULL,
     patient_id integer NOT NULL,
-    date_of_visit date NOT NULL
+    date_of_visit date NOT NULL,
+    hd_status integer DEFAULT 0 NOT NULL
 );
 
 
@@ -573,10 +587,12 @@ COPY public.visit_symptom (visit_id, symptom_id) FROM stdin;
 -- Data for Name: visits; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.visits (visit_id, patient_id, date_of_visit) FROM stdin;
-2	6	2022-01-01
-3	6	2021-01-01
-4	6	2023-01-01
+COPY public.visits (visit_id, patient_id, date_of_visit, hd_status) FROM stdin;
+2	6	2022-01-01	0
+3	6	2021-01-01	0
+4	6	2023-01-01	0
+5	6	2023-01-02	0
+7	6	2023-03-02	1
 \.
 
 
@@ -640,7 +656,7 @@ SELECT pg_catalog.setval('public.symptom_symptom_id_seq', 5, true);
 -- Name: visits_visit_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.visits_visit_id_seq', 4, true);
+SELECT pg_catalog.setval('public.visits_visit_id_seq', 7, true);
 
 
 --
