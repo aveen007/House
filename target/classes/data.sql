@@ -855,3 +855,151 @@ ALTER TABLE ONLY public.fin_bet
 -- PostgreSQL database dump complete
 --
 
+-- 1) Base Terms & Conditions (версии условий)
+CREATE TABLE public.terms_and_conditions (
+    terms_id      integer NOT NULL,
+    title         character varying NOT NULL,
+    content       text NOT NULL,
+    version       integer NOT NULL,
+    is_active     boolean NOT NULL DEFAULT false,
+    created_at    timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE SEQUENCE public.terms_and_conditions_terms_id_seq
+    AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE public.terms_and_conditions_terms_id_seq
+    OWNED BY public.terms_and_conditions.terms_id;
+
+ALTER TABLE ONLY public.terms_and_conditions
+    ALTER COLUMN terms_id SET DEFAULT nextval('public.terms_and_conditions_terms_id_seq'::regclass);
+
+ALTER TABLE ONLY public.terms_and_conditions
+    ADD CONSTRAINT terms_and_conditions_pkey PRIMARY KEY (terms_id);
+
+ALTER TABLE ONLY public.terms_and_conditions
+    ADD CONSTRAINT terms_and_conditions_version_uq UNIQUE (version);
+
+
+-- 2) Contracts (контракты пациента)
+CREATE TABLE public.contracts (
+    contract_id     integer NOT NULL,
+    patient_id      integer NOT NULL,
+    terms_id        integer NOT NULL,
+    
+    -- Снимок условий на момент создания контракта
+    terms_snapshot  text NOT NULL,
+
+    -- DRAFT / READY / SIGNED / REVOKED 
+    status          character varying NOT NULL DEFAULT 'DRAFT',
+
+    created_at      timestamptz NOT NULL DEFAULT now(),
+    updated_at      timestamptz NOT NULL DEFAULT now(),
+    signed_at       timestamptz,
+
+    signed_by       character varying,
+    signature       character varying
+);
+
+CREATE SEQUENCE public.contracts_contract_id_seq
+    AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE public.contracts_contract_id_seq
+    OWNED BY public.contracts.contract_id;
+
+ALTER TABLE ONLY public.contracts
+    ALTER COLUMN contract_id SET DEFAULT nextval('public.contracts_contract_id_seq'::regclass);
+
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT contracts_pkey PRIMARY KEY (contract_id);
+
+-- FK на пациента
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT contracts_patient_fk
+    FOREIGN KEY (patient_id)
+    REFERENCES public.patients(patient_id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT;
+
+-- FK на terms
+ALTER TABLE ONLY public.contracts
+    ADD CONSTRAINT contracts_terms_fk
+    FOREIGN KEY (terms_id)
+    REFERENCES public.terms_and_conditions(terms_id)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT;
+
+-- Индекс для быстрых проверок "подписан ли контракт у пациента"
+CREATE INDEX contracts_patient_status_idx
+    ON public.contracts (patient_id, status);
+
+-- Вставка тестовых условий (Terms & Conditions)
+INSERT INTO public.terms_and_conditions (title, content, version, is_active) VALUES
+('Общие условия медицинского обслуживания v1', 
+ 'Настоящие условия регулируют предоставление медицинских услуг пациентам нашей клиники.
+ 
+1. ОБЩИЕ ПОЛОЖЕНИЯ
+Пациент обязуется предоставить достоверную информацию о своем состоянии здоровья.
+
+2. ПРАВА И ОБЯЗАННОСТИ ПАЦИЕНТА
+- Пациент имеет право на конфиденциальность медицинской информации
+- Пациент обязуется своевременно оплачивать медицинские услуги
+- Пациент имеет право на получение качественной медицинской помощи
+
+3. ОБРАБОТКА ПЕРСОНАЛЬНЫХ ДАННЫХ
+Клиника обязуется обрабатывать персональные данные в соответствии с законодательством.
+
+4. УСЛОВИЯ ОПЛАТЫ
+Оплата производится согласно тарифам, действующим на дату оказания услуг.
+
+5. ОТВЕТСТВЕННОСТЬ СТОРОН
+Стороны несут ответственность согласно законодательству РФ.',
+ 1, true),
+
+('Условия медицинского обслуживания v2 (расширенные)', 
+ 'Настоящие условия регулируют предоставление медицинских услуг пациентам нашей клиники (обновленная версия).
+ 
+1. ОБЩИЕ ПОЛОЖЕНИЯ
+1.1. Пациент обязуется предоставить достоверную информацию о своем состоянии здоровья.
+1.2. Пациент должен информировать врача о принимаемых лекарственных препаратах.
+
+2. ПРАВА И ОБЯЗАННОСТИ ПАЦИЕНТА
+- Пациент имеет право на конфиденциальность медицинской информации
+- Пациент обязуется своевременно оплачивать медицинские услуги
+- Пациент имеет право на получение качественной медицинской помощи
+- Пациент имеет право на получение копии медицинских документов
+
+3. ОБРАБОТКА ПЕРСОНАЛЬНЫХ ДАННЫХ
+3.1. Клиника обязуется обрабатывать персональные данные в соответствии с законодательством.
+3.2. Пациент дает согласие на обработку персональных данных, включая медицинскую информацию.
+
+4. УСЛОВИЯ ОПЛАТЫ
+4.1. Оплата производится согласно тарифам, действующим на дату оказания услуг.
+4.2. При наличии страховки, оплата производится в соответствии с условиями страхования.
+
+5. ОТВЕТСТВЕННОСТЬ СТОРОН
+5.1. Стороны несут ответственность согласно законодательству РФ.
+5.2. Клиника не несет ответственность за результаты лечения при несоблюдении пациентом рекомендаций врача.
+
+6. ПОРЯДОК РАЗРЕШЕНИЯ СПОРОВ
+Споры разрешаются путем переговоров, а при невозможности достижения согласия - в судебном порядке.',
+ 2, true),
+
+('Условия VIP обслуживания v1', 
+ 'Настоящие условия регулируют предоставление VIP медицинских услуг.
+ 
+1. УРОВЕНЬ ОБСЛУЖИВАНИЯ
+VIP пациенты получают приоритетное обслуживание без очереди.
+
+2. ДОПОЛНИТЕЛЬНЫЕ УСЛУГИ
+- Персональный менеджер
+- Индивидуальная палата
+- Расширенное питание
+- Бесплатная парковка
+
+3. УСЛОВИЯ ОПЛАТЫ
+Оплата производится по специальному тарифу VIP обслуживания.
+
+4. ПРОЧИЕ УСЛОВИЯ
+Применяются все условия стандартного договора с дополнениями согласно VIP пакету.',
+ 3, false);

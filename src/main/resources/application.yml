@@ -4,7 +4,7 @@ spring:
   datasource:
     #url: jdbc:postgresql://localhost:5433/medical_db
     url: jdbc:postgresql://localhost:5432/house_db
-    username: daniel
+    username: postgres
     password: 123
   jpa:
     hibernate:
