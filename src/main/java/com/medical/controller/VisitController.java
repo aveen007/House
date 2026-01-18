@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,6 +21,7 @@ public class VisitController {
     private final VisitService visitService;
     @PostMapping
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     public ResponseEntity<?> createVisit(@Valid @RequestBody VisitRequest request) {
         try {
             Visit visit = visitService.createVisit(request);
@@ -32,6 +34,7 @@ public class VisitController {
 
     @PutMapping("{visitId}/updateHDStatus")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasRole('HEAD_DOCTOR')")
     public ResponseEntity<?> updateVisitHDStatus(
             @PathVariable Integer visitId,
             @Valid @RequestBody VisitHDStatus new_status
@@ -47,6 +50,7 @@ public class VisitController {
 
     @GetMapping("/getAllAcceptedVisits")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getAllAcceptedVisits(){
         try {
             var visits = visitService.getAllAcceptedVisits();
@@ -59,6 +63,7 @@ public class VisitController {
 
     @GetMapping("/getAllHDAwaitingVisits")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasRole('HEAD_DOCTOR')")
     public ResponseEntity<?> getAllHDAwatingVisits(){
         try {
                 var visits = visitService.getAllHDAwatingVisits();
@@ -71,6 +76,7 @@ public class VisitController {
 
     @GetMapping("/getAllPatientVisits")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','DOCTOR','HEAD_DOCTOR','PATIENT')")
     public ResponseEntity<?> getAllPatientVisits(@RequestParam Integer patientId){
         try {
             var visits = visitService.getAllPatientVisits(patientId);
@@ -84,6 +90,7 @@ public class VisitController {
 
     @PostMapping("{visitId}/symptoms")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasRole('DOCTOR')")
     public ResponseEntity<?> addSymptomsVisit(
             @PathVariable Integer visitId,
             @Valid @RequestBody VisitSymptomsRequest request

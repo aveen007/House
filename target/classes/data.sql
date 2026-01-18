@@ -185,7 +185,7 @@ CREATE TABLE public.insurance_companies (
     insurance_company_id integer NOT NULL,
     company_name character varying NOT NULL,
     api_url character varying NOT NULL,
-    key character varying NOT NULL
+    api_key character varying NOT NULL
 );
 
 
@@ -522,7 +522,7 @@ COPY public.fin_bet (bet_id, visit_id) FROM stdin;
 -- Data for Name: insurance_companies; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.insurance_companies (insurance_company_id, company_name, api_url, key) FROM stdin;
+COPY public.insurance_companies (insurance_company_id, company_name, api_url, api_key) FROM stdin;
 1	TestInsurance	http://localhost:8080/api/insurance_check	nothing
 \.
 
@@ -1003,3 +1003,91 @@ VIP пациенты получают приоритетное обслужив�
 4. ПРОЧИЕ УСЛОВИЯ
 Применяются все условия стандартного договора с дополнениями согласно VIP пакету.',
  3, false);
+
+-- ==========================================
+-- Минимальная аутентификация/авторизация
+-- ==========================================
+
+-- Пользователи
+CREATE TABLE public.users (
+    user_id        integer NOT NULL,
+    username       character varying NOT NULL,
+    password_hash  character varying NOT NULL,
+    full_name      character varying,
+    status         character varying NOT NULL DEFAULT 'ACTIVE',
+    created_at     timestamptz NOT NULL DEFAULT now(),
+    patient_id     integer
+);
+
+CREATE SEQUENCE public.users_user_id_seq
+    AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE public.users_user_id_seq
+    OWNED BY public.users.user_id;
+
+ALTER TABLE ONLY public.users
+    ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_username_uq UNIQUE (username);
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_patient_fk FOREIGN KEY (patient_id)
+    REFERENCES public.patients(patient_id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+-- Роли
+CREATE TABLE public.roles (
+    role_id    integer NOT NULL,
+    role_name  character varying NOT NULL
+);
+
+CREATE SEQUENCE public.roles_role_id_seq
+    AS integer START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+
+ALTER SEQUENCE public.roles_role_id_seq
+    OWNED BY public.roles.role_id;
+
+ALTER TABLE ONLY public.roles
+    ALTER COLUMN role_id SET DEFAULT nextval('public.roles_role_id_seq'::regclass);
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (role_id);
+
+ALTER TABLE ONLY public.roles
+    ADD CONSTRAINT roles_role_name_uq UNIQUE (role_name);
+
+-- Связь пользователей и ролей
+CREATE TABLE public.user_roles (
+    user_id integer NOT NULL,
+    role_id integer NOT NULL
+);
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_pkey PRIMARY KEY (user_id, role_id);
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_user_fk FOREIGN KEY (user_id)
+    REFERENCES public.users(user_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+ALTER TABLE ONLY public.user_roles
+    ADD CONSTRAINT user_roles_role_fk FOREIGN KEY (role_id)
+    REFERENCES public.roles(role_id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+-- Стартовые роли
+INSERT INTO public.roles (role_name) VALUES
+('ADMIN'),
+('STAFF'),
+('HEAD_DOCTOR'),
+('DOCTOR'),
+('PATIENT');
+
+-- Стартовый пользователь admin (пароль: "password" в bcrypt)
+INSERT INTO public.users (username, password_hash, full_name, status) VALUES
+('admin', '$2a$10$DOWSDXk08LomqKgJo0vvPen69PXPglI.LfaLTZLkNVr7DiIP9N6by', 'Admin User', 'ACTIVE');
+
+INSERT INTO public.user_roles (user_id, role_id) VALUES
+((SELECT user_id FROM public.users WHERE username = 'admin'),
+ (SELECT role_id FROM public.roles WHERE role_name = 'ADMIN'));

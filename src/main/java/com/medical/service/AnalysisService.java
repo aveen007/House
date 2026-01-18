@@ -6,6 +6,7 @@ import com.medical.dto.PatientAnalysisRequest;
 import com.medical.entity.*;
 import com.medical.exception.ResourceNotFoundException;
 import com.medical.repository.*;
+import com.medical.security.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ public class AnalysisService {
     private final PatientRepository patientRepository;
     private final AnalysisBetRepository analysisBetRepository;
     private final BetRepository betRepository;
+    private final SecurityUtils securityUtils;
 
     public List<Analysis> getAllAnalysis() {
         List<Analysis> allAnalyses  = analysisRepository.findAll();
@@ -78,6 +80,7 @@ public class AnalysisService {
     }
 
     public List<PatientAnalysis> getPatientAnalyses(Integer patient_id) {
+        securityUtils.assertPatientAccess(patient_id);
         Patient existingPatient = patientRepository.findById(patient_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
 

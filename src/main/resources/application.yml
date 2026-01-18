@@ -1,11 +1,11 @@
 server:
-  port: 8080
+  port: 9314
 spring:
   datasource:
     #url: jdbc:postgresql://localhost:5433/medical_db
-    url: jdbc:postgresql://localhost:5432/house_db
+    url: jdbc:postgresql://localhost:5433/house_db
     username: postgres
-    password: 123
+    password: admin
   jpa:
     hibernate:
       ddl-auto: update # Временно используем update для синхронизации схемы

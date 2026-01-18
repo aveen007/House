@@ -10,6 +10,7 @@ import com.medical.repository.PatientRepository;
 import com.medical.repository.SymptomRepository;
 import com.medical.repository.VisitRepository;
 import com.medical.repository.VisitSymptomRepository;
+import com.medical.security.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class VisitService {
     private final PatientRepository patientRepository;
     private final VisitSymptomRepository visitSymptomRepository;
     private final SymptomRepository symptomRepository;
+    private final SecurityUtils securityUtils;
 
     @Transactional
     public Visit createVisit(VisitRequest request) {
@@ -53,6 +55,7 @@ public class VisitService {
     }
 
     public List<Visit> getAllPatientVisits(Integer patientId){
+        securityUtils.assertPatientAccess(patientId);
         return visitRepository.findByPatientIdOrderByDateOfVisitDesc(patientId);
     }
 

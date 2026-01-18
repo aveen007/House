@@ -4,6 +4,7 @@ import com.medical.contracts.*;
 import com.medical.dto.*;
 import com.medical.exception.ResourceNotFoundException;
 import com.medical.repository.PatientRepository;
+import com.medical.security.SecurityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,15 +17,18 @@ public class ContractService {
     private final ContractRepository contractRepository;
     private final TermsAndConditionsRepository termsRepository;
     private final PatientRepository patientRepository;
+    private final SecurityUtils securityUtils;
 
     public ContractService(
             ContractRepository contractRepository,
             TermsAndConditionsRepository termsRepository,
-            PatientRepository patientRepository
+            PatientRepository patientRepository,
+            SecurityUtils securityUtils
     ) {
         this.contractRepository = contractRepository;
         this.termsRepository = termsRepository;
         this.patientRepository = patientRepository;
+        this.securityUtils = securityUtils;
     }
 
     @Transactional(readOnly = true)
@@ -34,6 +38,7 @@ public class ContractService {
 
     @Transactional(readOnly = true)
     public List<ContractResponse> getPatientContracts(Integer patientId) {
+        securityUtils.assertPatientAccess(patientId);
         patientRepository.findById(patientId)
                 .orElseThrow(() -> new ResourceNotFoundException("Patient not found: " + patientId));
         
@@ -101,6 +106,7 @@ public class ContractService {
     public ContractResponse viewContract(Integer contractId) {
         var c = contractRepository.findById(contractId)
                 .orElseThrow(() -> new ResourceNotFoundException("Contract not found: " + contractId));
+        securityUtils.assertPatientAccess(c.getPatientId());
         return toResponse(c);
     }
 
@@ -108,6 +114,7 @@ public class ContractService {
     public ContractResponse signContract(Integer contractId, ContractSignRequest req) {
         var c = contractRepository.findById(contractId)
                 .orElseThrow(() -> new ResourceNotFoundException("Contract not found: " + contractId));
+        securityUtils.assertPatientAccess(c.getPatientId());
 
         if (!c.getPatientId().equals(req.getPatientId())) {
             throw new IllegalStateException("Contract belongs to another patient");
