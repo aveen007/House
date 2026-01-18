@@ -1080,6 +1080,7 @@ ALTER TABLE ONLY public.user_roles
 INSERT INTO public.roles (role_name) VALUES
 ('ADMIN'),
 ('STAFF'),
+('LAWYER'),
 ('HEAD_DOCTOR'),
 ('DOCTOR'),
 ('PATIENT');

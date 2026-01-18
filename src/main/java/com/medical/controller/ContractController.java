@@ -29,31 +29,31 @@ public class ContractController {
     }
 
     @GetMapping("/patient/{patientId}")
-    @PreAuthorize("hasAnyRole('ADMIN','STAFF','DOCTOR','HEAD_DOCTOR','PATIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','DOCTOR','HEAD_DOCTOR','PATIENT','LAWYER')")
     public List<ContractResponse> getPatientContracts(@PathVariable Integer patientId) {
         return contractService.getPatientContracts(patientId);
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','LAWYER')")
     public ContractResponse createContract(@RequestBody ContractCreateRequest req) {
         return contractService.createContract(req);
     }
 
     @PutMapping("/{contractId}")
-    @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','LAWYER')")
     public ContractResponse saveContract(@PathVariable Integer contractId, @RequestBody ContractSaveRequest req) {
         return contractService.saveContract(contractId, req);
     }
 
     @GetMapping("/{contractId}")
-    @PreAuthorize("hasAnyRole('ADMIN','STAFF','DOCTOR','HEAD_DOCTOR','PATIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','DOCTOR','HEAD_DOCTOR','PATIENT','LAWYER')")
     public ContractResponse viewContract(@PathVariable Integer contractId) {
         return contractService.viewContract(contractId);
     }
 
     @PostMapping("/{contractId}/sign")
-    @PreAuthorize("hasRole('PATIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN','PATIENT')")
     public ContractResponse signContract(@PathVariable Integer contractId, @RequestBody ContractSignRequest req) {
         return contractService.signContract(contractId, req);
     }

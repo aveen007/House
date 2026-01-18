@@ -29,7 +29,7 @@ public class BetController {
 
     @GetMapping("/getBetPatients")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getBetPatients() {
         try {
             List<BetPatientsResponse> patients = betService.getAllBetPatients();
@@ -41,7 +41,7 @@ public class BetController {
     }
     @GetMapping("/getVisitPatients")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getVisitPatients() {
         try {
             List<VisitPatientsResponse> patients = betService.getAllVisitPatients();
@@ -54,7 +54,7 @@ public class BetController {
 
     @GetMapping("/getVisitSymptoms")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getBetPatients(@RequestParam Integer visitId) {
         try {
             List<Integer> symptoms = betService.getVisitSymptoms(visitId);
@@ -67,7 +67,7 @@ public class BetController {
 
     @GetMapping("/getVisitStatus")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getStatusForVisit(@RequestParam Integer visitId) {
         try {
             Optional<FinBet> status = betService.getStatusForVisit(visitId);
@@ -84,7 +84,7 @@ public class BetController {
 
     @GetMapping("/getVisitBets")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getBetsForVisit(@RequestParam Integer visitId) {
         try {
             List<Bet> bets = betService.getBetsForVisit(visitId);
@@ -97,7 +97,7 @@ public class BetController {
 
     @PostMapping("/createBet")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasRole('DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR')")
     public ResponseEntity<?> createBet(
             @Valid @RequestBody BetRequest request) {
         try {
@@ -111,7 +111,7 @@ public class BetController {
 
     @PostMapping("/finalizeBet")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasRole('HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','HEAD_DOCTOR')")
     public ResponseEntity<?> finalizeBet(
             @Valid @RequestBody Bet request) {
         try {

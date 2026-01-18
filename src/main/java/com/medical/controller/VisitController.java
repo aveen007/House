@@ -34,7 +34,7 @@ public class VisitController {
 
     @PutMapping("{visitId}/updateHDStatus")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasRole('HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','HEAD_DOCTOR')")
     public ResponseEntity<?> updateVisitHDStatus(
             @PathVariable Integer visitId,
             @Valid @RequestBody VisitHDStatus new_status
@@ -50,7 +50,7 @@ public class VisitController {
 
     @GetMapping("/getAllAcceptedVisits")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getAllAcceptedVisits(){
         try {
             var visits = visitService.getAllAcceptedVisits();
@@ -63,7 +63,7 @@ public class VisitController {
 
     @GetMapping("/getAllHDAwaitingVisits")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasRole('HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','HEAD_DOCTOR')")
     public ResponseEntity<?> getAllHDAwatingVisits(){
         try {
                 var visits = visitService.getAllHDAwatingVisits();
@@ -90,7 +90,7 @@ public class VisitController {
 
     @PostMapping("{visitId}/symptoms")
     @CrossOrigin(origins = "http://localhost:3000")
-    @PreAuthorize("hasRole('DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR')")
     public ResponseEntity<?> addSymptomsVisit(
             @PathVariable Integer visitId,
             @Valid @RequestBody VisitSymptomsRequest request

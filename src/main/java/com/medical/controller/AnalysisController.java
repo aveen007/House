@@ -40,7 +40,7 @@ public class AnalysisController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createAnalysisResult")
-    @PreAuthorize("hasRole('STAFF')")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     public ResponseEntity<?> createAnalysisResult(
             @Valid @RequestBody AnalysisResultRequest request
     ) {
@@ -55,7 +55,7 @@ public class AnalysisController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/createPatientAnalysis")
-    @PreAuthorize("hasRole('DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR')")
     public ResponseEntity<?> createPatientAnalysis(
             @Valid @RequestBody PatientAnalysisRequest request,
             @RequestParam(defaultValue = "true") boolean verifyInsurance
@@ -71,7 +71,7 @@ public class AnalysisController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getPatientAnalyses")
-    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR','PATIENT')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','HEAD_DOCTOR','PATIENT')")
     public ResponseEntity<?> getPatientAnalyses(
             @RequestParam Integer patientId) {
         try {
@@ -87,7 +87,7 @@ public class AnalysisController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getAwaitingHDAnalyses")
-    @PreAuthorize("hasRole('HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','HEAD_DOCTOR')")
     public ResponseEntity<?> getAwaitingAnalyses() {
         try {
             var patientsAnalyses = analysisService.getAwaitingHDAnalyses();
@@ -100,7 +100,7 @@ public class AnalysisController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getApprovedAnalyses")
-    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getApprovedAnalyses() {
         try {
             var patientsAnalyses = analysisService.getApprovedAnalyses();
@@ -113,7 +113,7 @@ public class AnalysisController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getBetAnalyses")
-    @PreAuthorize("hasAnyRole('DOCTOR','HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getBetAnalyses(
             @RequestParam Integer betId) {
         try {
@@ -127,7 +127,7 @@ public class AnalysisController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/updatePatientAnalysisStatus")
-    @PreAuthorize("hasRole('HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','HEAD_DOCTOR')")
     public ResponseEntity<?> updatePatientAnalysisStatus(
             @RequestParam Integer patientAnalysisId,
             @Valid @RequestBody AnalysisStatus status) {
@@ -143,7 +143,7 @@ public class AnalysisController {
     @CrossOrigin(origins = "http://localhost:3000")
 
     @GetMapping("/patientAnalyses")
-    @PreAuthorize("hasRole('HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','HEAD_DOCTOR')")
     public ResponseEntity<List<PatientAnalysis>> getAllPatientAnalyses() {
         return ResponseEntity.ok(analysisService.getAllPatientAnalyses());
     }
