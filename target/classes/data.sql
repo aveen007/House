@@ -1080,13 +1080,14 @@ ALTER TABLE ONLY public.user_roles
 INSERT INTO public.roles (role_name) VALUES
 ('ADMIN'),
 ('STAFF'),
+('LAWYER'),
 ('HEAD_DOCTOR'),
 ('DOCTOR'),
 ('PATIENT');
 
--- Стартовый пользователь admin (пароль: "password" в bcrypt)
+-- Стартовый пользователь admin (пароль: "password" в bcrypt фактор 10)
 INSERT INTO public.users (username, password_hash, full_name, status) VALUES
-('admin', '$2a$10$DOWSDXk08LomqKgJo0vvPen69PXPglI.LfaLTZLkNVr7DiIP9N6by', 'Admin User', 'ACTIVE');
+('admin', '$2a$10$zuCSj7RPeWiorX3qZQRFwO5o94x8QdMze7NKbq91GxfeHqA2kszjO', 'Admin User', 'ACTIVE');
 
 INSERT INTO public.user_roles (user_id, role_id) VALUES
 ((SELECT user_id FROM public.users WHERE username = 'admin'),
