@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9314
 spring:
   datasource:
     #url: jdbc:postgresql://localhost:5433/medical_db

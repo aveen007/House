@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.Map;
+import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class BetService {
@@ -29,24 +30,25 @@ public class BetService {
         List<BetPatientsResponse> betPatients = new ArrayList<>();
 
         List<Patient> allPatients = patientRepository.findAll();
+        List<Visit> allAcceptedVisits = visitRepository.findByHdStatusOrderByDateOfVisitDesc(VisitHDStatus.Accepted);
 
-        for(Patient patient : allPatients)
-        {
-            List<Visit> RecentVisits = visitRepository.findByPatientIdOrderByDateOfVisitDesc(patient.getId());
-            if(!RecentVisits.isEmpty())
-            {
-                Visit recentVisit = RecentVisits.get(0);
-                List<Bet> allBets = betRepository.findByVisitId(recentVisit.getId());
+        // Map patientId → Patient for easy lookup
+        Map<Integer, Patient> patientMap = allPatients.stream()
+                .collect(Collectors.toMap(Patient::getId, p -> p));
+        for (Visit recentVisit : allAcceptedVisits) {
+            List<Bet> allBets = betRepository.findByVisitId(recentVisit.getId());
 
-                boolean betEnded = false;
-                for(Bet bet : allBets)
-                {
-                    if(finBetRepository.findByBet(bet).isPresent()) {
-                        betEnded = true;
-                        break;
-                    }
+            boolean betEnded = false;
+            for (Bet bet : allBets) {
+                if (finBetRepository.findByBet(bet).isPresent()) {
+                    betEnded = true;
+                    break;
                 }
-                if(!betEnded) {
+            }
+
+            if (!betEnded) {
+                Patient patient = patientMap.get(recentVisit.getPatientId());
+                if (patient != null) {
                     BetPatientsResponse betPatient = new BetPatientsResponse();
 
                     betPatient.setId(patient.getId());
@@ -61,7 +63,8 @@ public class BetService {
                 }
             }
         }
-        return  betPatients;
+
+        return betPatients;
     }
     public List<VisitPatientsResponse> getAllVisitPatients() {
 
