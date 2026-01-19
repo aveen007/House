@@ -1,0 +1,3 @@
+Label,# Samples,Average,Min,Max,Std. Dev.,Error %,Throughput,Received KB/sec,Sent KB/sec,Avg. Bytes
+Get All Patients,778432,13,0,113,8.74,0.000%,8645.40204,4033.22,1106.00,477.7
+TOTAL,778432,13,0,113,8.74,0.000%,8645.40204,4033.22,1106.00,477.7

@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class PatientController {
     private final PatientService patientService;
     @PostMapping("/createPatient")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     public ResponseEntity<?> createPatient(
             @Valid @RequestBody PatientRequest request,
             @RequestParam(defaultValue = "true") boolean verifyInsurance
@@ -32,6 +34,7 @@ public class PatientController {
     }
     @GetMapping("/getPatients")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','DOCTOR','HEAD_DOCTOR')")
     public ResponseEntity<?> getAllPatients() {
         try {
             List<Patient> patients = patientService.getAllPatients();
@@ -43,6 +46,7 @@ public class PatientController {
     }
     @GetMapping("/getPatient")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','DOCTOR','HEAD_DOCTOR','PATIENT')")
     public ResponseEntity<?> getPatient(@RequestParam Integer patientId) {
         try {
             Patient patient = patientService.getPatient(patientId);
@@ -54,6 +58,7 @@ public class PatientController {
     }
     @PutMapping("/updatePatient")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF')")
     public ResponseEntity<?> updatePatient(@Valid @RequestBody Patient request) {
         try {
             Patient updatedPatient = patientService.updatePatient(request);
@@ -65,6 +70,7 @@ public class PatientController {
     }
     @DeleteMapping("/deletePatient")
     @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deletePatient(@RequestParam Integer patientId) {
         try {
             patientService.deletePatient(patientId);

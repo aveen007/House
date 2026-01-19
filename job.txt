@@ -1,0 +1,1839 @@
+[0KRunning with gitlab-runner 18.6.2 (83dc1e70)[0;m
+[0K  on linux-workhorse-0 nPk-sVN67, system ID: s_26ad0e26d373[0;m
+section_start:1766740578:prepare_executor
+[0K[0K[36;1mPreparing the "docker" executor[0;m[0;m
+[0KUsing Docker executor with image golang:1.25 ...[0;m
+[0KUsing effective pull policy of [always] for container golang:1.25[0;m
+[0KPulling docker image golang:1.25 ...[0;m
+[0KUsing docker image sha256:b3f02847b4be43a1c4901d0f1457f5685e24e2357ed7787bb2f4e589d7bb1c01 for golang:1.25 with digest golang@sha256:36b4f45d2874905b9e8573b783292629bcb346d0a70d8d7150b6df545234818f ...[0;m
+section_end:1766740593:prepare_executor
+[0Ksection_start:1766740593:prepare_script
+[0K[0K[36;1mPreparing environment[0;m[0;m
+[0KUsing effective pull policy of [always] for container sha256:3345a00268f8343f290ca3a1fc5d34dd39c3711fcf9b993f5359d34bb3358e81[0;m
+Running on runner-npk-svn67-project-907-concurrent-1 via linux-workhorse...
+section_end:1766740616:prepare_script
+[0Ksection_start:1766740616:get_sources
+[0K[0K[36;1mGetting source from Git repository[0;m[0;m
+[32;1mGitaly correlation ID: 01KDCZ3K2X59J4MDAJX66A0K62[0;m
+[32;1mFetching changes with git depth set to 20...[0;m
+Reinitialized existing Git repository in /builds/red-database/golang/fbx/.git/
+[32;1mCreated fresh repository.[0;m
+[32;1mChecking out 48b2fd41 as detached HEAD (ref is 248803_fbtype_fixes)...[0;m
+Removing .go/
+Removing cover.html
+Removing cover.out
+Removing installer
+Removing libfbxci.so
+
+[32;1mSkipping Git submodules setup[0;m
+section_end:1766740619:get_sources
+[0Ksection_start:1766740619:restore_cache
+[0K[0K[36;1mRestoring cache[0;m[0;m
+[32;1mChecking cache for default-non_protected...[0;m
+No URL provided, cache will not be downloaded from shared cache server. Instead a local version of cache will be extracted.[0;m 
+[32;1mSuccessfully extracted cache[0;m
+section_end:1766740623:restore_cache
+[0Ksection_start:1766740623:step_script
+[0K[0K[36;1mExecuting "step_script" stage of the job script[0;m[0;m
+[0KUsing effective pull policy of [always] for container golang:1.25[0;m
+[0KUsing docker image sha256:b3f02847b4be43a1c4901d0f1457f5685e24e2357ed7787bb2f4e589d7bb1c01 for golang:1.25 with digest golang@sha256:36b4f45d2874905b9e8573b783292629bcb346d0a70d8d7150b6df545234818f ...[0;m
+[32;1m$ wget -q http://builds.red-soft.biz/release_hub/rdb50/${RDB5_VERSION}/download/red-database:linux-x86_64-enterprise:${RDB5_VERSION}:bin -O installer[0;m
+[32;1m$ chmod +x ./installer[0;m
+[32;1m$ ./installer --mode unattended --sysdba_password masterkey[0;m
+[32;1m$ cp ci/firebird.conf /opt/RedDatabase[0;m
+[32;1m$ g++ -o libfbxci.so -shared -fPIC ci/udrs.cpp -I_tools/msgs/include[0;m
+[32;1m$ cp libfbxci.so /opt/RedDatabase/plugins/udr[0;m
+[32;1m$ /etc/init.d/firebird start[0;m
+Starting RedDatabase server: [32;1m$ go run gotest.tools/gotestsum@latest $(go list ./... | grep -v /vendor/) -coverprofile cover.out[0;m
+[32m✓[0m  fbconn/ctxwatch (288ms) (coverage: 95.5% of statements)
+[32m✓[0m  fbconn/internal/bgreader (2.22s) (coverage: 87.2% of statements)
+[32m✓[0m  fbproto (4.383s) (coverage: 54.2% of statements)
+[32m✓[0m  fbproto/auth (19ms) (coverage: 55.2% of statements)
+[32m✓[0m  fbproto/utils (7ms) (coverage: 14.1% of statements)
+[33m∅[0m  fbproto/vax (780ms) (coverage: 0.0% of statements)
+[33m∅[0m  fbproto/wirecrypt (777ms) (coverage: 0.0% of statements)
+[31m✖[0m  fbtype/zeronull (5.538s) (coverage: 49.4% of statements)
+[32m✓[0m  fbtype (9.005s) (coverage: 40.7% of statements)
+[33m∅[0m  fbxtest (163ms) (coverage: 0.0% of statements)
+[32m✓[0m  internal/iobufpool (345ms) (coverage: 100.0% of statements)
+[32m✓[0m  internal/pgio (6ms) (coverage: 75.0% of statements)
+[33m∅[0m  internal/stmtcache (130ms) (coverage: 0.0% of statements)
+[31m✖[0m  . (26.963s) (coverage: 71.4% of statements)
+[31m✖[0m  fbxpool (7.8s) (coverage: 78.6% of statements)
+[32m✓[0m  tracelog (4.785s) (coverage: 77.5% of statements)
+[31m✖[0m  stdlib (7.342s) (coverage: 73.2% of statements)
+[31m✖[0m  fbconn (56.425s) (coverage: 70.7% of statements)
+
+=== [33mSkipped[0m
+=== [33mSKIP[0m: . TestInsertBoolArray (0.00s)
+    conn_test.go:627: need implementation
+
+=== [33mSKIP[0m: . TestInsertTimestampArray (0.00s)
+    conn_test.go:646: need implementation
+
+=== [33mSKIP[0m: . TestRawValuesUnderlyingMemoryReused (0.00s)
+    conn_test.go:757: too slow
+
+=== [33mSKIP[0m: . TestRowToStructByNameLaxRowValue (0.00s)
+    rows_test.go:953: need implementation in RDB
+
+=== [33mSKIP[0m: . TestTxCommitWhenDeferredConstraintFailure (0.00s)
+    tx_test.go:106: not supported by server
+
+=== [33mSKIP[0m: . TestTxCommitSerializationFailure (0.00s)
+    tx_test.go:152: transaction will wait indefinitely
+
+=== [33mSKIP[0m: . TestArrayDecoding (0.00s)
+    values_test.go:83: 
+
+=== [33mSKIP[0m: . TestEmptyArrayDecoding (0.00s)
+    values_test.go:203: 
+
+=== [33mSKIP[0m: . TestCrateDBConnect (0.00s)
+    conn_test.go:29: Skipping due to missing environment variable PGX_TEST_CRATEDB_CONN_STRING
+
+=== [33mSKIP[0m: fbconn TestConnOnNotice (0.00s)
+    fbconn_test.go:1376: need events implementation
+
+=== [33mSKIP[0m: fbconn TestHijackAndConstruct (0.00s)
+    fbconn_test.go:1679: need implementation?
+
+=== [33mSKIP[0m: fbtype TestArrayCodec (0.00s)
+    array_codec_test.go:15: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecFlatArrayString (0.00s)
+    array_codec_test.go:54: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecArray (0.00s)
+    array_codec_test.go:88: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecNamedSliceType (0.00s)
+    array_codec_test.go:119: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecAnySliceArgument (0.00s)
+    array_codec_test.go:144: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecAnyArray (0.00s)
+    array_codec_test.go:168: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecDecodeValue (0.00s)
+    array_codec_test.go:191: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecScanMultipleDimensions (0.00s)
+    array_codec_test.go:228: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecScanMultipleDimensionsEmpty (0.00s)
+    array_codec_test.go:247: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecScanWrongMultipleDimensions (0.00s)
+    array_codec_test.go:265: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecEncodeMultipleDimensions (0.00s)
+    array_codec_test.go:280: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecEncodeMultipleDimensionsRagged (0.00s)
+    array_codec_test.go:298: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecDecodeTextArrayWithTextOfNULL (0.00s)
+    array_codec_test.go:309: 
+
+=== [33mSKIP[0m: fbtype TestArrayCodecDecodeTextArrayPrefersBinaryFormat (0.00s)
+    array_codec_test.go:333: 
+
+=== [33mSKIP[0m: fbtype TestByteaCodec (0.00s)
+    bytea_test.go:33: 
+
+=== [33mSKIP[0m: fbtype TestDriverBytesQueryRow (0.00s)
+    bytea_test.go:43: 
+
+=== [33mSKIP[0m: fbtype TestDriverBytes (0.00s)
+    bytea_test.go:52: 
+
+=== [33mSKIP[0m: fbtype TestPreallocBytes (0.00s)
+    bytea_test.go:90: 
+
+=== [33mSKIP[0m: fbtype TestUndecodedBytes (0.00s)
+    bytea_test.go:113: 
+
+=== [33mSKIP[0m: fbtype TestByteaCodecDecodeDatabaseSQLValue (0.00s)
+    bytea_test.go:125: 
+
+=== [33mSKIP[0m: fbtype TestMapScanBinaryFormatInterfacePtr (0.00s)
+    fbtype_test.go:79: 
+
+=== [33mSKIP[0m: fbtype TestMapScanUnknownOIDToStringsAndBytes (0.00s)
+    fbtype_test.go:88: 
+
+=== [33mSKIP[0m: fbtype TestMapScanPtrToPtrToSlice (0.00s)
+    fbtype_test.go:229: 
+
+=== [33mSKIP[0m: fbtype TestMapEncodeTextFormatDatabaseValuerThatIsFmtStringer (0.00s)
+    fbtype_test.go:281: 
+
+=== [33mSKIP[0m: fbtype TestMapEncodeDatabaseValuerThatReturnsStringIntoUnregisteredTypeTextFormat (0.00s)
+    fbtype_test.go:306: 
+
+=== [33mSKIP[0m: fbtype TestMapEncodeByteSliceIntoUnregisteredTypeTextFormat (0.00s)
+    fbtype_test.go:321: 
+
+=== [33mSKIP[0m: fbtype TestScanToSliceOfRenamedUint8 (0.00s)
+    fbtype_test.go:361: 
+
+=== [33mSKIP[0m: fbtype TestCachedPlanScanConfusion (0.00s)
+    fbtype_test.go:401: 
+
+=== [33mSKIP[0m: fbtype TestUint32Codec (0.00s)
+    uint32_test.go:13: 
+
+=== [33mSKIP[0m: fbtype TestUint64Codec (0.00s)
+    uint64_test.go:12: 
+
+=== [33mSKIP[0m: fbtype TestUUIDCodec (0.00s)
+    uuid_test.go:19: 
+
+=== [33mSKIP[0m: stdlib TestConnSimpleSlicePassThrough (0.00s)
+    sql_test.go:441: need implementation
+
+=== [33mSKIP[0m: stdlib TestConnQueryScanGoArray (0.00s)
+    sql_test.go:451: need implementation
+
+=== [33mSKIP[0m: stdlib TestConnQueryScanArray (0.00s)
+    sql_test.go:463: need implementation
+
+=== [33mSKIP[0m: stdlib TestConnQueryJSONIntoByteSlice (0.00s)
+    sql_test.go:493: need implementation
+
+=== [33mSKIP[0m: stdlib TestConnExecInsertByteSliceIntoJSON (0.00s)
+    sql_test.go:524: need implementation
+
+=== [33mSKIP[0m: stdlib TestScanJSONIntoJSONRawMessage (0.00s)
+    sql_test.go:1033: need implementation
+
+=== [31mFailed[0m
+=== [31mFAIL[0m: . TestLargeObjects (0.03s)
+    large_objects_test.go:39: Dynamic SQL Error
+        SQL error code = -104
+        Token unknown - line 1, column 18
+        $
+        SQLSTATE 42000
+
+=== [31mFAIL[0m: . TestLargeObjectsMultipleTransactions (0.01s)
+    large_objects_test.go:153: Dynamic SQL Error
+        SQL error code = -104
+        Token unknown - line 1, column 18
+        $
+        SQLSTATE 42000
+
+=== [31mFAIL[0m: . TestTransactionSuccessfulCommit (0.24s)
+    tx_test.go:31: Failed to create table: deadlock
+        update conflicts with concurrent update
+        concurrent transaction number is 566
+        SQLSTATE 40001
+
+=== [31mFAIL[0m: . TestTxNestedTransactionRollback (0.07s)
+    tx_test.go:467: Failed to create table: deadlock
+        update conflicts with concurrent update
+        concurrent transaction number is 973
+        SQLSTATE 40001
+
+=== [31mFAIL[0m: fbconn TestDeadlineContextWatcherHandler/DeadlineExceeded_with_zero_DeadlineDelay (1.11s)
+    fbconn_test.go:2401: 
+        	Error Trace:	/builds/red-database/golang/fbx/fbconn/fbconn_test.go:2401
+        	Error:      	Received unexpected error:
+        	            	timeout: context deadline exceeded
+        	Test:       	TestDeadlineContextWatcherHandler/DeadlineExceeded_with_zero_DeadlineDelay
+
+=== [31mFAIL[0m: fbconn TestDeadlineContextWatcherHandler/DeadlineExceeded_with_DeadlineDelay (0.95s)
+    fbconn_test.go:2425: 
+        	Error Trace:	/builds/red-database/golang/fbx/fbconn/fbconn_test.go:2425
+        	Error:      	Received unexpected error:
+        	            	timeout: context already done: context deadline exceeded
+        	Test:       	TestDeadlineContextWatcherHandler/DeadlineExceeded_with_DeadlineDelay
+
+=== [31mFAIL[0m: fbconn TestDeadlineContextWatcherHandler (2.06s)
+
+=== [31mFAIL[0m: fbconn TestCancelRequestContextWatcherHandler (0.46s)
+    fbconn_test.go:2443: 
+        	Error Trace:	/builds/red-database/golang/fbx/fbconn/fbconn_test.go:2443
+        	Error:      	Received unexpected error:
+        	            	timeout: context already done: context deadline exceeded
+        	Test:       	TestCancelRequestContextWatcherHandler
+
+=== [31mFAIL[0m: fbtype/zeronull TestUUIDTranscode (0.02s)
+    uuid_test.go:16: 
+        	Error Trace:	/builds/red-database/golang/fbx/fbxtest/fbxtest.go:128
+        	            				/builds/red-database/golang/fbx/fbxtest/fbxtest.go:72
+        	            				/builds/red-database/golang/fbx/fbxtest/fbxtest.go:119
+        	            				/builds/red-database/golang/fbx/fbtype/zeronull/uuid_test.go:16
+        	Error:      	Received unexpected error:
+        	            	Dynamic SQL Error
+        	            	SQL error code = -607
+        	            	Invalid command
+        	            	Specified domain or source column UUID does not exist
+        	            	SQLSTATE 42000
+        	Test:       	TestUUIDTranscode
+        	Messages:   	0. cache statement: Dynamic SQL Error
+        	            	SQL error code = -607
+        	            	Invalid command
+        	            	Specified domain or source column UUID does not exist
+        	            	SQLSTATE 42000
+
+=== [31mFAIL[0m: fbxpool TestTxBeginFuncNestedTransactionRollback (0.17s)
+    pool_test.go:999: 
+        	Error Trace:	/builds/red-database/golang/fbx/fbxpool/pool_test.go:999
+        	Error:      	Received unexpected error:
+        	            	deadlock
+        	            	update conflicts with concurrent update
+        	            	concurrent transaction number is 604
+        	            	SQLSTATE 40001
+        	Test:       	TestTxBeginFuncNestedTransactionRollback
+
+=== [31mFAIL[0m: stdlib TestConnQueryRowPgxBinary/cache_statement (0.02s)
+    sql_test.go:487: 
+        	Error Trace:	/builds/red-database/golang/fbx/stdlib/sql_test.go:487
+        	            				/builds/red-database/golang/fbx/stdlib/sql_test.go:57
+        	Error:      	Received unexpected error:
+        	            	failed to encode args[0]: unable to encode "{1,2,3}" into binary format for int (OID 496): cannot find encode plan
+        	Test:       	TestConnQueryRowPgxBinary/cache_statement
+
+=== [31mFAIL[0m: stdlib TestConnQueryRowPgxBinary/exec (0.02s)
+    sql_test.go:487: 
+        	Error Trace:	/builds/red-database/golang/fbx/stdlib/sql_test.go:487
+        	            				/builds/red-database/golang/fbx/stdlib/sql_test.go:57
+        	Error:      	Received unexpected error:
+        	            	failed to encode args[0]: unable to encode "{1,2,3}" into binary format for int (OID 496): cannot find encode plan
+        	Test:       	TestConnQueryRowPgxBinary/exec
+
+=== [31mFAIL[0m: stdlib TestConnQueryRowPgxBinary (0.04s)
+
+=== [31mFAIL[0m: stdlib TestBeginTxContextCancel/cache_statement (0.03s)
+    sql_test.go:678: err => <nil>, want FbError{Code: "42S02"}
+
+=== [31mFAIL[0m: stdlib TestBeginTxContextCancel/exec (0.04s)
+    sql_test.go:678: err => <nil>, want FbError{Code: "42S02"}
+
+=== [31mFAIL[0m: stdlib TestBeginTxContextCancel (0.07s)
+
+=== [31mFAIL[0m: stdlib TestRowsColumnTypes/cache_statement (0.03s)
+    sql_test.go:953: test column 0
+    sql_test.go:953: test column 1
+    sql_test.go:963: (1) got: 0, want: 9223372036854775807
+    sql_test.go:966: (1) got: false, want: true
+    sql_test.go:953: test column 2
+    sql_test.go:970: (2) got: 0, want: 9
+    sql_test.go:973: (2) got: 0, want: 2
+    sql_test.go:976: (2) got: false, want: true
+    sql_test.go:979: (2) got: int32, want: float64
+    sql_test.go:953: test column 3
+    sql_test.go:959: (3) got: 32756, want: 1266
+
+=== [31mFAIL[0m: stdlib TestRowsColumnTypes/exec (0.02s)
+    sql_test.go:953: test column 0
+    sql_test.go:953: test column 1
+    sql_test.go:963: (1) got: 0, want: 9223372036854775807
+    sql_test.go:966: (1) got: false, want: true
+    sql_test.go:953: test column 2
+    sql_test.go:970: (2) got: 0, want: 9
+    sql_test.go:973: (2) got: 0, want: 2
+    sql_test.go:976: (2) got: false, want: true
+    sql_test.go:979: (2) got: int32, want: float64
+    sql_test.go:953: test column 3
+    sql_test.go:959: (3) got: 32756, want: 1266
+
+=== [31mFAIL[0m: stdlib TestRowsColumnTypes (0.06s)
+
+DONE 682 tests, 48 skipped, 19 failures in 56.425s
+exit status 1
+section_end:1766740730:step_script
+[0Ksection_start:1766740730:after_script
+[0K[0K[36;1mRunning after_script[0;m[0;m
+[32;1mRunning after script...[0;m
+[32;1m$ go tool cover -html cover.out -o cover.html[0;m
+[32;1m$ go tool cover -func cover.out[0;m
+rdb.red-soft.ru/fbx/conn.go:54:					Copy						100.0%
+rdb.red-soft.ru/fbx/conn.go:62:					ConnString					100.0%
+rdb.red-soft.ru/fbx/conn.go:93:					Sanitize					100.0%
+rdb.red-soft.ru/fbx/conn.go:109:				newProxyErr					100.0%
+rdb.red-soft.ru/fbx/conn.go:121:				Error						100.0%
+rdb.red-soft.ru/fbx/conn.go:123:				Unwrap						100.0%
+rdb.red-soft.ru/fbx/conn.go:131:				Connect						75.0%
+rdb.red-soft.ru/fbx/conn.go:141:				ConnectWithOptions				0.0%
+rdb.red-soft.ru/fbx/conn.go:151:				ConnectConfig					100.0%
+rdb.red-soft.ru/fbx/conn.go:161:				ParseConfigWithOptions				88.5%
+rdb.red-soft.ru/fbx/conn.go:222:				ParseConfig					100.0%
+rdb.red-soft.ru/fbx/conn.go:227:				connect						100.0%
+rdb.red-soft.ru/fbx/conn.go:275:				Close						100.0%
+rdb.red-soft.ru/fbx/conn.go:293:				Prepare						100.0%
+rdb.red-soft.ru/fbx/conn.go:297:				prepareTx					100.0%
+rdb.red-soft.ru/fbx/conn.go:305:				internalPrepare					100.0%
+rdb.red-soft.ru/fbx/conn.go:357:				Deallocate					100.0%
+rdb.red-soft.ru/fbx/conn.go:374:				DeallocateAll					85.7%
+rdb.red-soft.ru/fbx/conn.go:389:				bufferNotifications				0.0%
+rdb.red-soft.ru/fbx/conn.go:394:				IsClosed					100.0%
+rdb.red-soft.ru/fbx/conn.go:398:				die						80.0%
+rdb.red-soft.ru/fbx/conn.go:408:				quoteIdentifier					0.0%
+rdb.red-soft.ru/fbx/conn.go:413:				Ping						0.0%
+rdb.red-soft.ru/fbx/conn.go:422:				FbConn						100.0%
+rdb.red-soft.ru/fbx/conn.go:427:				TypeMap						100.0%
+rdb.red-soft.ru/fbx/conn.go:432:				Config						100.0%
+rdb.red-soft.ru/fbx/conn.go:438:				Exec						100.0%
+rdb.red-soft.ru/fbx/conn.go:444:				execTx						87.5%
+rdb.red-soft.ru/fbx/conn.go:462:				exec						80.6%
+rdb.red-soft.ru/fbx/conn.go:518:				execParams					0.0%
+rdb.red-soft.ru/fbx/conn.go:534:				execPrepared					88.9%
+rdb.red-soft.ru/fbx/conn.go:550:				execSQLParams					0.0%
+rdb.red-soft.ru/fbx/conn.go:566:				getRows						100.0%
+rdb.red-soft.ru/fbx/conn.go:608:				String						75.0%
+rdb.red-soft.ru/fbx/conn.go:651:				Query						100.0%
+rdb.red-soft.ru/fbx/conn.go:654:				queryTx						59.4%
+rdb.red-soft.ru/fbx/conn.go:770:				getStatementDescription				0.0%
+rdb.red-soft.ru/fbx/conn.go:810:				QueryRow					100.0%
+rdb.red-soft.ru/fbx/conn.go:825:				LoadType					0.0%
+rdb.red-soft.ru/fbx/conn.go:900:				getArrayElementOID				0.0%
+rdb.red-soft.ru/fbx/conn.go:912:				getRangeElementOID				0.0%
+rdb.red-soft.ru/fbx/conn.go:924:				getMultiRangeElementOID				0.0%
+rdb.red-soft.ru/fbx/conn.go:971:				deallocateInvalidatedCachedStatements		100.0%
+rdb.red-soft.ru/fbx/conn.go:1004:				Commit						0.0%
+rdb.red-soft.ru/fbx/extended_query_builder.go:21:		Build						43.8%
+rdb.red-soft.ru/fbx/extended_query_builder.go:52:		appendParam					35.0%
+rdb.red-soft.ru/fbx/extended_query_builder.go:88:		appendResultFormat				0.0%
+rdb.red-soft.ru/fbx/extended_query_builder.go:93:		reset						66.7%
+rdb.red-soft.ru/fbx/extended_query_builder.go:115:		encodeExtendedParamValue			90.0%
+rdb.red-soft.ru/fbx/extended_query_builder.go:136:		chooseParameterFormatCode			0.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:93:			Copy						100.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:127:			isAbsolutePath					80.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:145:			NetworkAddress					66.7%
+rdb.red-soft.ru/fbx/fbconn/config.go:233:			ParseConfig					100.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:241:			ParseConfigWithOptions				86.2%
+rdb.red-soft.ru/fbx/fbconn/config.go:384:			mergeSettings					100.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:396:			parseEnvSettings				100.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:432:			parseAuthPluginList				81.2%
+rdb.red-soft.ru/fbx/fbconn/config.go:463:			parseURLSettings				90.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:533:			isIPOnly					100.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:539:			parseKeywordValueSettings			92.9%
+rdb.red-soft.ru/fbx/fbconn/config.go:611:			parseServiceSettings				0.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:638:			parsePort					66.7%
+rdb.red-soft.ru/fbx/fbconn/config.go:649:			makeDefaultDialer				100.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:654:			makeDefaultResolver				100.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:658:			parseConnectTimeoutSetting			66.7%
+rdb.red-soft.ru/fbx/fbconn/config.go:669:			makeConnectTimeoutDialFunc			100.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:677:			ValidateConnectTargetSessionAttrsReadWrite	66.7%
+rdb.red-soft.ru/fbx/fbconn/config.go:692:			ValidateConnectTargetSessionAttrsReadOnly	0.0%
+rdb.red-soft.ru/fbx/fbconn/config.go:751:			convertToBool					100.0%
+rdb.red-soft.ru/fbx/fbconn/ctxwatch/context_watcher.go:22:	NewContextWatcher				100.0%
+rdb.red-soft.ru/fbx/fbconn/ctxwatch/context_watcher.go:32:	Watch						92.3%
+rdb.red-soft.ru/fbx/fbconn/ctxwatch/context_watcher.go:60:	Unwatch						100.0%
+rdb.red-soft.ru/fbx/fbconn/defaults.go:13:			defaultSettings					100.0%
+rdb.red-soft.ru/fbx/fbconn/defaults.go:39:			defaultHost					100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:18:			SafeToRetry					100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:28:			Timeout						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:44:			SQLState					0.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:48:			Error						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:52:			ErrorResponseToFbError				100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:71:			Error						80.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:81:			Unwrap						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:91:			Error						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:95:			Unwrap						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:103:			SafeToRetry					100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:107:			Error						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:118:			Error						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:129:			Unwrap						0.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:133:			normalizeTimeoutError				75.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:152:			normalizeConnClosedError			75.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:184:			Error						0.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:194:			SafeToRetry					0.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:198:			Unwrap						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:208:			Error						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:212:			SafeToRetry					100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:216:			Unwrap						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:224:			Error						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:228:			SafeToRetry					100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:232:			Unwrap						100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:237:			newContextAlreadyDoneError			100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:241:			redactPW					100.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:256:			redactURL					80.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:271:			Error						0.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:275:			SafeToRetry					0.0%
+rdb.red-soft.ru/fbx/fbconn/errors.go:279:			Unwrap						0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:26:			authPrintf					50.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:131:			Connect						75.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:143:			ConnectWithOptions				75.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:158:			ConnectConfig					83.3%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:193:			handleCondAccept				80.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:218:			handleAuthResponse				57.1%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:257:			enableWireCrypt					69.2%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:281:			sendContAuth					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:305:			buildConnectOneConfigs				83.3%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:368:			connectPreferred				80.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:428:			connectOne					74.3%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:673:			ReceiveMessage					83.3%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:701:			peekMessage					60.9%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:742:			receiveMessage					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:769:			Conn						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:774:			ActiveTx					0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:779:			Client						0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:786:			Close						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:818:			asyncClose					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:838:			CleanupDone					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:845:			IsClosed					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:850:			IsBusy						0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:855:			lock						83.3%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:868:			unlock						66.7%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:880:			ParameterStatus					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:891:			RowsAffected					0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:895:			String						12.5%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:929:			Insert						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:933:			Update						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:937:			Delete						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:941:			Select						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:944:			DDL						0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:965:			convertRowDescription				100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:989:			Prepare						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1002:			PrepareTx					65.9%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1093:			CancelRequest					63.6%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1116:			ExecImmediate					60.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1126:			ExecImmediateTx					61.3%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1192:			Exec						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1196:			ExecTx						0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1219:			ExecParams					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1242:			ExecParamsTx					85.2%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1291:			Commit						0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1303:			Rollback					0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1315:			Disconnect					62.5%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1379:			Read						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1406:			ReadAll						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1413:			NextRow						84.2%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1509:			FieldDescriptions				100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1515:			Values						100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1521:			Close						81.8%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1541:			populateRowsAffected				63.6%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1564:			concludeCommand					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1585:			EscapeString					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1602:			CheckConn					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1617:			Ping						65.2%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1661:			makeQueryStatus					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1667:			enterPotentialWriteReadDeadlock			50.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1680:			exitPotentialWriteReadDeadlock			33.3%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1693:			flushWithPotentialWriteReadDeadlock		100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1707:			SyncConn					0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1726:			CustomData					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1751:			Hijack						0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1777:			Construct					0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1810:			ensureInternalTransaction			92.9%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1834:			StartTransaction				100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1839:			StartTransactionTPB				80.8%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1896:			HandleCancel					100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1900:			HandleUnwatchAfterCancel			100.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1919:			HandleCancel					0.0%
+rdb.red-soft.ru/fbx/fbconn/fbconn.go:1949:			HandleUnwatchAfterCancel			0.0%
+rdb.red-soft.ru/fbx/fbconn/internal/bgreader/bgreader.go:33:	Start						83.3%
+rdb.red-soft.ru/fbx/fbconn/internal/bgreader/bgreader.go:50:	Stop						100.0%
+rdb.red-soft.ru/fbx/fbconn/internal/bgreader/bgreader.go:65:	Status						0.0%
+rdb.red-soft.ru/fbx/fbconn/internal/bgreader/bgreader.go:71:	bgRead						100.0%
+rdb.red-soft.ru/fbx/fbconn/internal/bgreader/bgreader.go:90:	Read						100.0%
+rdb.red-soft.ru/fbx/fbconn/internal/bgreader/bgreader.go:111:	readFromReadResults				83.3%
+rdb.red-soft.ru/fbx/fbconn/internal/bgreader/bgreader.go:132:	New						100.0%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:22:			Error						0.0%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:29:			NewServerInfoBufferReader			100.0%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:33:			ReadByte					100.0%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:37:			ReadInt32ValueNoPrefix				80.0%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:46:			ReadInt32Value					75.0%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:59:			ReadStringValue					62.5%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:73:			ReadInt64Value					64.3%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:99:			getInfoStatement				100.0%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:116:			getInfoSQlRecords				83.3%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:131:			getServerInfo					69.6%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:171:			GetSelectDescribeInfoItemsContinue		100.0%
+rdb.red-soft.ru/fbx/fbconn/server_info.go:175:			GetSelectDescribeInfoItems			100.0%
+rdb.red-soft.ru/fbx/fbconn/statement.go:36:			GetQueryType					25.0%
+rdb.red-soft.ru/fbx/fbconn/statement.go:70:			HaveCursorResult				100.0%
+rdb.red-soft.ru/fbx/fbconn/statement.go:74:			HaveSingletonResult				100.0%
+rdb.red-soft.ru/fbx/fbconn/statement.go:78:			GetAffectedCount				100.0%
+rdb.red-soft.ru/fbx/fbconn/statement.go:95:			Exec						59.1%
+rdb.red-soft.ru/fbx/fbconn/statement.go:138:			ExecTx						46.7%
+rdb.red-soft.ru/fbx/fbconn/statement.go:287:			internalClose					72.4%
+rdb.red-soft.ru/fbx/fbconn/statement.go:341:			Deallocate					100.0%
+rdb.red-soft.ru/fbx/fbconn/statement.go:346:			CloseCursor					100.0%
+rdb.red-soft.ru/fbx/fbconn/statement_info.go:24:		parseInfo					73.7%
+rdb.red-soft.ru/fbx/fbconn/statement_info.go:58:		feedDescriptors					65.2%
+rdb.red-soft.ru/fbx/fbconn/statement_info.go:140:		FbTypeIntoFormat				80.0%
+rdb.red-soft.ru/fbx/fbconn/statement_info.go:151:		GetRowBlr					100.0%
+rdb.red-soft.ru/fbx/fbconn/statement_info.go:155:		GetParametersBlr				100.0%
+rdb.red-soft.ru/fbx/fbconn/statement_info.go:159:		CalculateBlr					53.1%
+rdb.red-soft.ru/fbx/fbconn/statement_info.go:276:		parseInfo					66.7%
+rdb.red-soft.ru/fbx/fbconn/statement_info.go:299:		parseSQLCounts					68.2%
+rdb.red-soft.ru/fbx/fbconn/transaction.go:18:			Commit						66.7%
+rdb.red-soft.ru/fbx/fbconn/transaction.go:69:			Rollback					0.0%
+rdb.red-soft.ru/fbx/fbconn/warning.go:11:			OpResponseToFbWarning				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:51:			DefaultPluginSequence				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:56:			DefaultPluginListString				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:74:			NewAuthManager					90.5%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:115:			GetCurrentPlugin				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:125:			BuildList					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:129:			SetCurrentPlugin				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:141:			BeginHandshake					75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:153:			HandleServerChallenge				84.6%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:175:			HandleAuthResponse				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:183:			AuthSpecificData				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:187:			SessionKey					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:191:			pluginNames					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:203:			Error						0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:210:			cloneBytes					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:219:			cloneStrings					80.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:228:			prioritizePlugin				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/auth.go:250:			splitSpecificData				92.9%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:27:			NewGssAuthPlugin				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:29:			Name						100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:31:			Advertise					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:35:			InitialClientData				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:37:			HandleServerData				81.2%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:71:			HandleAuthResponse				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:75:			parseGssServerData				73.7%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:127:			SetGssTokenProvider				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:129:			getGssTokenProvider				66.7%
+rdb.red-soft.ru/fbx/fbproto/auth/gss.go:141:			gssDebugf					66.7%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:23:	NewGoKrb5Provider				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:25:	init						100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:29:	InitToken					0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:89:	initSpnegoToken					0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:107:	clientFromKeytab				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:141:	loadKrb5Config					0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:172:	sanitizeKrb5Conf				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:177:	minimalConfigFromCC				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:191:	getCCachePath					0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:232:	defaultCCacheFromConf				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:263:	fileExists					0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/gss_provider_gokrb5.go:278:	dbg						0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/legacy.go:13:			NewLegacyAuthPlugin				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/legacy.go:17:			Name						100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/legacy.go:21:			Advertise					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/legacy.go:25:			InitialClientData				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/legacy.go:29:			HandleServerData				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/legacy.go:37:			HandleAuthResponse				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:15:		GetClientSeed					0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:23:		GetClientSeedForVariant				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:31:		generateSalt					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:35:		newSRPSalt					75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:43:		getServerSessionForVariant			75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:51:		getClientProof					0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:59:		GetClientProof					0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:63:		BigIntToBytes					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:70:		getClientProofForVariant			87.5%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:94:		NewSrpAuthPlugin				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:102:		NewSrp256AuthPlugin				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:110:		NewSrp224AuthPlugin				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:118:		NewSrp384AuthPlugin				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:126:		NewSrp512AuthPlugin				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:134:		newSrpAuthPlugin				71.4%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:153:		Name						100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:157:		Advertise					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:161:		InitialClientData				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:165:		HandleServerData				41.7%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:190:		HandleAuthResponse				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:198:		verifyServerProof				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:215:		parseSrpServerData				79.5%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_compat.go:286:		extractSrpServerProof				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_config.go:49:		mustBigIntFromHex				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_config.go:57:		mustBigIntFromDecimal				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:70:		newSRPEngine					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:91:		scramble					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:100:		userHash					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:105:		sessionKey					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:110:		pow						75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:120:		generatePrivate					88.9%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:139:		GenerateClientValues				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:149:		GenerateServerValues				0.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:158:		GenerateSalt					83.3%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:171:		PublicClientKey					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:176:		PublicServerKey					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:195:		ClientSessionKey				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:208:		clientSessionSecret				83.3%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:239:		ServerSessionKey				75.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:252:		serverSessionSecret				81.8%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:272:		Verifier					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:285:		ClientProof					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:304:		ServerProof					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_engine.go:313:		isValidPublicKey				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_util.go:10:		srpPad						100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_util.go:31:		srpBytesToBigInt				100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_util.go:42:		srpBigIntToSha1					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_util.go:48:		srpStringHash					100.0%
+rdb.red-soft.ru/fbx/fbproto/auth/srp_util.go:54:		srpUserHash					100.0%
+rdb.red-soft.ru/fbx/fbproto/client.go:28:			NewClient					100.0%
+rdb.red-soft.ru/fbx/fbproto/client.go:39:			SetCodec					100.0%
+rdb.red-soft.ru/fbx/fbproto/client.go:44:			Read						100.0%
+rdb.red-soft.ru/fbx/fbproto/client.go:56:			Write						91.7%
+rdb.red-soft.ru/fbx/fbproto/client.go:75:			WriteMessage					75.0%
+rdb.red-soft.ru/fbx/fbproto/client.go:93:			ReadPackets					0.0%
+rdb.red-soft.ru/fbx/fbproto/client.go:115:			ReadMessage					56.2%
+rdb.red-soft.ru/fbx/fbproto/client.go:145:			ReceiveMessage					63.6%
+rdb.red-soft.ru/fbx/fbproto/client.go:187:			ReceiveSQLData					77.8%
+rdb.red-soft.ru/fbx/fbproto/client.go:204:			Trace						100.0%
+rdb.red-soft.ru/fbx/fbproto/client.go:212:			Untrace						0.0%
+rdb.red-soft.ru/fbx/fbproto/encoding.go:21:			Transform					0.0%
+rdb.red-soft.ru/fbx/fbproto/encoding.go:27:			Reset						0.0%
+rdb.red-soft.ru/fbx/fbproto/encoding.go:29:			Bytes						0.0%
+rdb.red-soft.ru/fbx/fbproto/encoding.go:32:			String						0.0%
+rdb.red-soft.ru/fbx/fbproto/encoding.go:36:			CharacterSetIdIntoName				0.0%
+rdb.red-soft.ru/fbx/fbproto/encoding.go:56:			NewDummyEncoder					0.0%
+rdb.red-soft.ru/fbx/fbproto/encoding.go:60:			NewDummyDecoder					0.0%
+rdb.red-soft.ru/fbx/fbproto/encoding.go:64:			NewEncoding					29.2%
+rdb.red-soft.ru/fbx/fbproto/field_descriptor.go:30:		GetIOLength					20.0%
+rdb.red-soft.ru/fbx/fbproto/field_descriptor.go:55:		CalculateIoLength				75.0%
+rdb.red-soft.ru/fbx/fbproto/field_descriptor.go:63:		GetPaddingByte					0.0%
+rdb.red-soft.ru/fbx/fbproto/field_descriptor.go:77:		GetCharacterSetId				0.0%
+rdb.red-soft.ru/fbx/fbproto/op_allocate_statement.go:8:		Write						66.7%
+rdb.red-soft.ru/fbx/fbproto/op_attach.go:10:			Write						61.5%
+rdb.red-soft.ru/fbx/fbproto/op_cancel.go:9:			Write						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_commit.go:9:			Write						66.7%
+rdb.red-soft.ru/fbx/fbproto/op_commit_retaining.go:9:		Write						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_cond_data_accept.go:20:		Read						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_cond_data_accept.go:24:		Read						69.6%
+rdb.red-soft.ru/fbx/fbproto/op_connect.go:28:			Write						72.7%
+rdb.red-soft.ru/fbx/fbproto/op_cont_auth.go:13:			Write						60.0%
+rdb.red-soft.ru/fbx/fbproto/op_cont_auth.go:40:			Read						60.0%
+rdb.red-soft.ru/fbx/fbproto/op_crypt.go:12:			Write						60.0%
+rdb.red-soft.ru/fbx/fbproto/op_detach.go:8:			Write						66.7%
+rdb.red-soft.ru/fbx/fbproto/op_disconnect.go:8:			Write						75.0%
+rdb.red-soft.ru/fbx/fbproto/op_dummy.go:8:			Read						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_execute.go:15:			Write						46.4%
+rdb.red-soft.ru/fbx/fbproto/op_execute_immediate.go:10:		Write						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_fetch.go:11:			Write						58.3%
+rdb.red-soft.ru/fbx/fbproto/op_fetch_response.go:10:		Read						66.7%
+rdb.red-soft.ru/fbx/fbproto/op_fetch_response.go:25:		MoreRows					100.0%
+rdb.red-soft.ru/fbx/fbproto/op_fetch_response.go:29:		EndOfCursor					100.0%
+rdb.red-soft.ru/fbx/fbproto/op_free_statement.go:10:		Write						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_info_sql.go:11:			Write						66.7%
+rdb.red-soft.ru/fbx/fbproto/op_ping.go:6:			Write						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_prepare_statement.go:15:		Write						57.9%
+rdb.red-soft.ru/fbx/fbproto/op_reject.go:8:			Read						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_response.go:27:			Read						61.2%
+rdb.red-soft.ru/fbx/fbproto/op_rollback.go:9:			Write						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_rollback_retaining.go:9:		Write						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_sql_response.go:9:		Read						0.0%
+rdb.red-soft.ru/fbx/fbproto/op_transaction.go:9:		Write						62.5%
+rdb.red-soft.ru/fbx/fbproto/sqldata.go:17:			ReadRowData					69.2%
+rdb.red-soft.ru/fbx/fbproto/sqldata.go:58:			WriteRowData					44.7%
+rdb.red-soft.ru/fbx/fbproto/timezonemap.go:5:			getTimezoneNameByID				0.0%
+rdb.red-soft.ru/fbx/fbproto/timezonemap.go:644:			ResolveLocationByTzRaw				0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:25:			traceRequest					52.6%
+rdb.red-soft.ru/fbx/fbproto/trace.go:66:			traceResponse					30.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:89:			tracePrepareMessage				83.3%
+rdb.red-soft.ru/fbx/fbproto/trace.go:100:			traceFreeStatementMessage			0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:104:			traceFetchMessage				100.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:114:			traceInfoSQLMessage				100.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:124:			traceAllocateMessage				100.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:128:			traceCommitRetainingMessage			0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:132:			traceResponseMessage				100.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:151:			traceExecuteMessage				93.3%
+rdb.red-soft.ru/fbx/fbproto/trace.go:182:			traceConnectMessage				0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:213:			traceContAuthMessage				0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:226:			traceSqlResponseMessage				0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:232:			traceFetchResponseMessage			100.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:239:			traceCondAcceptMessage				0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:255:			traceDataAcceptMessage				0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:259:			traceCryptMessage				0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:263:			traceAttachMessage				0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:273:			traceTransactionMessage				100.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:284:			traceCommitMessage				100.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:288:			traceRollbackMessage				0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:292:			traceRollbackRetainingMessage			0.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:296:			traceRowData					80.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:360:			writeTrace					76.5%
+rdb.red-soft.ru/fbx/fbproto/trace.go:391:			traceSingleQuotedString				100.0%
+rdb.red-soft.ru/fbx/fbproto/trace.go:407:			traceDoubleQuotedString				100.0%
+rdb.red-soft.ru/fbx/fbproto/utils/bitset.go:8:			NewBitSet					100.0%
+rdb.red-soft.ru/fbx/fbproto/utils/bitset.go:13:			NewBitSetFromBytes				100.0%
+rdb.red-soft.ru/fbx/fbproto/utils/bitset.go:17:			Set						100.0%
+rdb.red-soft.ru/fbx/fbproto/utils/bitset.go:22:			Get						100.0%
+rdb.red-soft.ru/fbx/fbproto/utils/bitset.go:26:			Buf						100.0%
+rdb.red-soft.ru/fbx/fbproto/utils/bitset.go:30:			AlignedBuf					100.0%
+rdb.red-soft.ru/fbx/fbproto/utils/bitset.go:35:			Count						0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:11:			Str_to_bytes					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:15:			Int32_to_bytes					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:25:			Int64_to_bytes					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:39:			Bint64_to_bytes					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:53:			Bint32_to_bytes					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:63:			Int16_to_bytes					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:70:			Bytes_to_str					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:74:			Bytes_to_bint32					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:78:			Bytes_to_int32					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:82:			bytes_to_bint16					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:86:			Bytes_to_buint16				0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:90:			Bytes_to_int16					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:94:			Bytes_to_bint64					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:98:			Bytes_to_int64					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:102:			BigIntFromHexString				0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:108:			BigIntFromString				0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:114:			FlattenBytes					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:133:			XdrBytes					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:151:			xdrString					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:157:			convertToBool					0.0%
+rdb.red-soft.ru/fbx/fbproto/utils/utils.go:165:			fitsUint32					0.0%
+rdb.red-soft.ru/fbx/fbproto/vax/vax.go:3:			Integer2					0.0%
+rdb.red-soft.ru/fbx/fbproto/vax/vax.go:7:			Integer						0.0%
+rdb.red-soft.ru/fbx/fbproto/vax/vax.go:24:			Long						0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/builtin.go:4:		NewDefaultManager				0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/codec.go:20:		NewSymmetricCodec				0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/codec.go:36:		newRC4Codec					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/codec.go:48:		Encrypt						0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/codec.go:49:		Decrypt						0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/codec.go:56:		newChaChaCodec					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/codec.go:72:		Encrypt						0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/codec.go:73:		Decrypt						0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/known_keys.go:33:		ParseKnownServerKeys				0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/known_keys.go:123:	splitPlugins					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/known_keys.go:141:	splitPluginSpecific				0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/known_keys.go:157:	CollectPluginSpecificData			0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/manager.go:24:		NewManager					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/manager.go:35:		Register					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/manager.go:45:		AddServerKeys					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/manager.go:60:		ClearServerKeys					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/manager.go:67:		TryInitialize					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/manager.go:104:		LastError					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/manager.go:110:		keyFor						0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/plugin_arc4.go:5:		newArc4Plugin					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/plugin_chacha.go:7:	newChaChaPlugin					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/plugin_chacha.go:25:	newChaCha64Plugin				0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/types.go:40:		Identifier					0.0%
+rdb.red-soft.ru/fbx/fbproto/wirecrypt/types.go:44:		Initialize					0.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:18:				NewXDRReader					100.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:22:				NewXDRWriter					100.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:26:				SkipPadding					100.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:30:				SkipBytes					100.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:41:				ReadBufferLen					0.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:55:				ReadBuffer					66.7%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:70:				ReadBytes					100.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:76:				ReadInt32					75.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:84:				ReadUInt32					0.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:92:				ReadInt64					75.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:100:				ReadString					71.4%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:112:				WriteBytes					66.7%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:123:				WriteInt32					100.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:129:				WriteUInt32					0.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:135:				WriteInt64					0.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:141:				WriteBuffer					75.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:158:				WritePadding					100.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:162:				WriteCustomPadding				0.0%
+rdb.red-soft.ru/fbx/fbproto/xdr.go:170:				WriteString					66.7%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:16:				NewXPBReader					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:20:				Next						100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:29:				Skip						0.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:33:				End						100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:37:				Get						100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:44:				GetBytes					71.4%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:56:				GetString					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:63:				GetInt16					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:69:				GetInt32					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:75:				GetInt64					0.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:81:				Reset						100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:85:				NewXPBWriter					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:91:				NewXPBWriterFromTag				100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:95:				NewXPBWriterFromBytes				100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:99:				AppendTag					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:104:				AppendByte					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:109:				AppendInt16					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:114:				AppendInt32					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:119:				PutInt64					0.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:124:				AppendBytes					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:129:				Bytes						100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:133:				Reset						100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:142:				NewDPBWriterV2					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:146:				NewDPBWriterV2FromBytes				0.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:150:				PutTag						100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:154:				PutByte						0.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:160:				PutInt16					0.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:166:				PutInt32					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:172:				PutInt64					0.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:178:				PutBuffer					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:183:				PutString					100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:190:				Bytes						100.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:198:				NewTPBWriterV3					0.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:202:				PutTag						0.0%
+rdb.red-soft.ru/fbx/fbproto/xpb.go:206:				Bytes						0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:31:				cardinality					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:44:				DecodeBinary					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:75:				EncodeBinary					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:100:			parseUntypedTextArray				81.2%
+rdb.red-soft.ru/fbx/fbtype/array.go:247:			skipWhitespace					100.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:258:			arrayParseValue					86.7%
+rdb.red-soft.ru/fbx/fbtype/array.go:286:			arrayParseQuotedValue				80.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:313:			arrayParseInteger				83.3%
+rdb.red-soft.ru/fbx/fbtype/array.go:335:			encodeTextArrayDimensions			0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:360:			quoteArrayElement				0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:364:			isSpace						0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:368:			quoteArrayElementIfNeeded			0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:381:			Dimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:385:			Index						0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:389:			IndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:394:			SetDimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:410:			ScanIndex					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:414:			ScanIndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:420:			Dimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:428:			Index						0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:432:			IndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:437:			SetDimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:448:			ScanIndex					0.0%
+rdb.red-soft.ru/fbx/fbtype/array.go:452:			ScanIndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:45:			FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:49:			PreferredFormat					0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:56:			PlanEncode					0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:87:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:166:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:219:			PlanScan					0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:246:			decodeBinary					0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:286:			decodeText					0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:333:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:355:			DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:372:			DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/array_codec.go:382:			isRagged					0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:25:				ScanBool					100.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:30:				BoolValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:35:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:65:				Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:73:				MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:85:				UnmarshalJSON					87.5%
+rdb.red-soft.ru/fbx/fbtype/bool.go:103:				FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:107:				PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:111:				PlanEncode					50.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:134:				Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:148:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:169:				Encode						44.4%
+rdb.red-soft.ru/fbx/fbtype/bool.go:190:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:202:				PlanScan					62.5%
+rdb.red-soft.ru/fbx/fbtype/bool.go:224:				DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:228:				DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:243:				Scan						77.8%
+rdb.red-soft.ru/fbx/fbtype/bool.go:264:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:290:				Scan						75.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:309:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/bool.go:331:				planTextToBool					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:16:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:18:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:34:		Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:40:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:42:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:58:		Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:64:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:66:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:82:		Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:88:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:90:		ScanInt64					75.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:100:		Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:106:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:108:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:125:		Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:131:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:133:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:149:		Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:155:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:157:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:173:		Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:179:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:181:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:197:		Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:203:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:205:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:219:		Int64Value					66.7%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:227:		ScanNumeric					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:246:		NumericValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:252:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:254:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:272:		Int64Value					66.7%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:280:		ScanNumeric					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:305:		NumericValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:311:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:313:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:323:		Int64Value					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:331:		ScanFloat64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:341:		Float64Value					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:347:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:349:		ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:359:		Int64Value					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:367:		ScanFloat64					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:377:		Float64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:383:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:385:		ScanText					75.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:394:		TextValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:400:		ScanDate					75.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:409:		DateValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:413:		ScanTimestamp					75.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:422:		TimestampValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:426:		ScanTimestamptz					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:435:		TimestamptzValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:439:		ScanTime					86.7%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:461:		TimeValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:472:		ScanNetipPrefix					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:484:		NetipPrefixValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:497:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:499:		ScanNetipPrefix					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:513:		NetipPrefixValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:528:		ScanNetipPrefix					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:533:		NetipPrefixValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:539:		ScanNetipPrefix					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:554:		NetipPrefixValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:567:		TextValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:573:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:575:		ScanText					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:585:		TextValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:599:		IsNull						0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:603:		Index						0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:617:		ScanNull					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:621:		ScanIndex					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:633:		Dimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:641:		Index						0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:645:		IndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:649:		SetDimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:663:		ScanIndex					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:667:		ScanIndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:676:		Dimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:698:		Index						0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:718:		IndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:725:		SetDimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:770:		makeMultidimensionalSlice			0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:786:		ScanIndex					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:790:		ScanIndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:801:		Dimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:805:		Index						0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:809:		IndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:813:		SetDimensions					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:829:		ScanIndex					0.0%
+rdb.red-soft.ru/fbx/fbtype/builtin_wrappers.go:833:		ScanIndexType					0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:24:				ScanBytes					0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:33:				ScanBytes					0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:52:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:66:				FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:70:				PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:74:				PlanEncode					0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:97:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:108:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:122:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:135:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:149:			PlanScan					50.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:173:			Scan						71.4%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:187:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:194:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:212:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:221:			decodeHexBytea					0.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:239:			DecodeDatabaseSQLValue				100.0%
+rdb.red-soft.ru/fbx/fbtype/bytea.go:243:			DecodeValue					71.4%
+rdb.red-soft.ru/fbx/fbtype/convert.go:7:			NullAssignTo					0.0%
+rdb.red-soft.ru/fbx/fbtype/convert.go:28:			toInterface					0.0%
+rdb.red-soft.ru/fbx/fbtype/convert.go:40:			GetAssignToDstType				0.0%
+rdb.red-soft.ru/fbx/fbtype/convert.go:91:			init						100.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:30:				ScanDate					100.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:35:				DateValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:40:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:58:				Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:66:				MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:76:				UnmarshalJSON					83.3%
+rdb.red-soft.ru/fbx/fbtype/date.go:100:				FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:104:				PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:108:				PlanEncode					83.3%
+rdb.red-soft.ru/fbx/fbtype/date.go:125:				Encode						87.5%
+rdb.red-soft.ru/fbx/fbtype/date.go:144:				Encode						89.5%
+rdb.red-soft.ru/fbx/fbtype/date.go:175:				PlanScan					66.7%
+rdb.red-soft.ru/fbx/fbtype/date.go:195:				Scan						87.5%
+rdb.red-soft.ru/fbx/fbtype/date.go:217:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:254:				DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/date.go:268:				DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:49:			Error						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:93:			Copy						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:101:			NewMap						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:135:			RegisterTypes					0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:142:			RegisterType					83.3%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:157:			RegisterDefaultFbType				75.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:168:			TypeForOID					88.9%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:187:			TypeForName					100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:195:			buildReflectTypeToType				100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:208:			TypeForValue					83.3%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:223:			FormatCodeForOID				0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:260:			Scan						80.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:274:			Scan						50.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:309:			Scan						42.9%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:345:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:373:			Scan						75.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:428:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:430:			Scan						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:443:			TryPointerPointerScanPlan			100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:483:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:485:			Scan						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:491:			TryFindUnderlyingTypeScanPlan			78.9%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:537:			TryWrapBuiltinTypeScanPlan			28.6%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:594:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:596:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:604:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:606:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:614:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:616:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:624:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:626:			Scan						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:634:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:636:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:644:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:646:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:654:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:656:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:664:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:666:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:674:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:676:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:684:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:686:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:694:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:696:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:704:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:706:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:714:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:716:			Scan						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:724:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:726:			Scan						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:744:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:746:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:754:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:756:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:764:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:766:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:774:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:776:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:814:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:816:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:830:			Scan						83.3%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:843:			TryWrapStructScanPlan				80.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:877:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:879:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:889:			TryWrapPtrSliceScanPlan				37.5%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:926:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:928:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:936:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:938:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:943:			TryWrapPtrMultiDimSliceScanPlan			50.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:967:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:969:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:974:			TryWrapPtrArrayScanPlan				71.4%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:992:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:994:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:999:			PlanScan					100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1003:			planScan					82.4%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1102:			Scan						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1113:			codecScan					75.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1121:			codecDecodeToTextFormat				0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1143:			PlanEncode					100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1147:			planEncodeDepth					93.3%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1179:			planEncode					90.5%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1226:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1233:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1254:			Encode						72.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1307:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1309:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1321:			TryWrapDerefPointerEncodePlan			80.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1357:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1359:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1365:			TryWrapFindUnderlyingTypeEncodePlan		70.6%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1414:			TryWrapBuiltinTypeEncodePlan			70.8%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1477:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1479:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1487:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1489:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1497:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1499:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1507:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1509:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1517:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1519:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1527:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1529:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1537:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1539:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1547:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1549:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1557:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1559:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1567:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1569:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1577:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1579:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1587:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1589:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1597:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1599:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1607:			SetNext						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1609:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1627:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1629:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1637:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1639:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1647:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1649:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1657:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1659:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1697:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1699:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1707:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1709:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1714:			TryWrapStructEncodePlan				44.4%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1739:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1741:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1750:			getExportedFieldValues				57.1%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1763:			TryWrapSliceEncodePlan				35.7%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1800:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1802:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1810:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1812:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1820:			TryWrapMultiDimSliceEncodePlan			50.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1846:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1848:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1856:			TryWrapArrayEncodePlan				66.7%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1875:			SetNext						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1877:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1885:			newEncodeError					70.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1909:			Encode						64.3%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1942:			SQLScanner					0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1955:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:1980:			isNilDriverValuer				61.5%
+rdb.red-soft.ru/fbx/fbtype/fbtype.go:2009:			CharacterSetForType				50.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype_default.go:17:		MakeTypeSubtype					100.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype_default.go:21:		GetType						0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype_default.go:25:		GetSubType					0.0%
+rdb.red-soft.ru/fbx/fbtype/fbtype_default.go:29:		initDefaultMap					100.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:20:			ScanFloat64					100.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:25:			Float64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:29:			ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:34:			Int64Value					0.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:39:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:62:			Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:69:			MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:76:			UnmarshalJSON					87.5%
+rdb.red-soft.ru/fbx/fbtype/float4.go:94:			FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:98:			PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:102:			PlanEncode					58.3%
+rdb.red-soft.ru/fbx/fbtype/float4.go:133:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:140:			Encode						80.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:151:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:158:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:165:			Encode						83.3%
+rdb.red-soft.ru/fbx/fbtype/float4.go:180:			Encode						71.4%
+rdb.red-soft.ru/fbx/fbtype/float4.go:194:			PlanScan					63.6%
+rdb.red-soft.ru/fbx/fbtype/float4.go:224:			Scan						75.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:242:			Scan						85.7%
+rdb.red-soft.ru/fbx/fbtype/float4.go:259:			Scan						72.7%
+rdb.red-soft.ru/fbx/fbtype/float4.go:282:			Scan						75.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:301:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:317:			DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/float4.go:330:			DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:28:			ScanFloat64					100.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:33:			Float64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:37:			ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:42:			Int64Value					0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:47:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:70:			Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:77:			MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:84:			UnmarshalJSON					87.5%
+rdb.red-soft.ru/fbx/fbtype/float8.go:102:			FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:106:			PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:110:			PlanEncode					58.3%
+rdb.red-soft.ru/fbx/fbtype/float8.go:141:			Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:148:			Encode						80.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:159:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:166:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:173:			Encode						83.3%
+rdb.red-soft.ru/fbx/fbtype/float8.go:188:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:203:			Encode						71.4%
+rdb.red-soft.ru/fbx/fbtype/float8.go:219:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:232:			PlanScan					63.6%
+rdb.red-soft.ru/fbx/fbtype/float8.go:262:			Scan						75.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:280:			Scan						85.7%
+rdb.red-soft.ru/fbx/fbtype/float8.go:297:			Scan						72.7%
+rdb.red-soft.ru/fbx/fbtype/float8.go:320:			Scan						75.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:339:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:357:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:372:			DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/float8.go:376:			DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:30:				ScanInt64					77.8%
+rdb.red-soft.ru/fbx/fbtype/int.go:47:				Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:52:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:91:				Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:98:				MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:105:				UnmarshalJSON					87.5%
+rdb.red-soft.ru/fbx/fbtype/int.go:123:				FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:127:				PreferredFormat					0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:131:				PlanEncode					0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:154:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:161:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:168:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:190:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:210:				PlanScan					0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:270:				DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:283:				DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:298:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:326:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:356:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:377:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:403:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:424:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:450:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:471:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:497:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:518:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:544:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:565:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:590:				ScanInt64					77.8%
+rdb.red-soft.ru/fbx/fbtype/int.go:607:				Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:612:				Scan						14.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:651:				Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:658:				MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:665:				UnmarshalJSON					87.5%
+rdb.red-soft.ru/fbx/fbtype/int.go:683:				FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:687:				PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:691:				PlanEncode					62.5%
+rdb.red-soft.ru/fbx/fbtype/int.go:714:				Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:721:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:728:				Encode						70.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:750:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:770:				PlanScan					59.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:830:				DecodeDatabaseSQLValue				71.4%
+rdb.red-soft.ru/fbx/fbtype/int.go:843:				DecodeValue					71.4%
+rdb.red-soft.ru/fbx/fbtype/int.go:858:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:886:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:916:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:944:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:974:				Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/int.go:995:				Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/int.go:1021:				Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/int.go:1042:				Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/int.go:1068:				Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/int.go:1089:				Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/int.go:1115:				Scan						77.8%
+rdb.red-soft.ru/fbx/fbtype/int.go:1136:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1161:				ScanInt64					77.8%
+rdb.red-soft.ru/fbx/fbtype/int.go:1178:				Int64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1183:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1222:				Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1229:				MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1236:				UnmarshalJSON					87.5%
+rdb.red-soft.ru/fbx/fbtype/int.go:1254:				FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1258:				PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1262:				PlanEncode					62.5%
+rdb.red-soft.ru/fbx/fbtype/int.go:1285:				Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1292:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1299:				Encode						70.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1321:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1341:				PlanScan					51.9%
+rdb.red-soft.ru/fbx/fbtype/int.go:1401:				DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1414:				DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1429:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:1457:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:1487:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:1515:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:1545:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:1573:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:1603:				Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/int.go:1624:				Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/int.go:1650:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:1678:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/int.go:1708:				Scan						77.8%
+rdb.red-soft.ru/fbx/fbtype/int.go:1729:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1750:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1771:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1792:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1813:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1834:				Scan						70.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1855:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1876:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1897:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1918:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1939:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/int.go:1960:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:31:			ScanNumeric					100.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:36:			NumericValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:40:			Float64Value					91.7%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:63:			ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:73:			Int64Value					0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:90:			ScanScientific					0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:110:			toBigInt					12.5%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:134:			parseNumericString				100.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:156:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:171:			Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:183:			MarshalJSON					0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:191:			UnmarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:200:			numberTextBytes					54.2%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:239:			FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:243:			PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:247:			PlanEncode					66.7%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:267:			Encode						75.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:281:			Encode						70.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:304:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:327:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:339:			encodeNumericText				75.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:349:			PlanScan					75.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:398:			Scan						85.7%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:417:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:440:			Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:468:			Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:500:			Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:525:			Scan						85.7%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:540:			DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:562:			DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:575:			DecodeNumericBinaryFB				70.0%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:599:			EncodeNumericBinaryFB				59.1%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:633:			float64ToNumeric				82.4%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:675:			EncodeNumericBinaryFBRoundHalfAwayFromZero	92.9%
+rdb.red-soft.ru/fbx/fbtype/numeric.go:720:			appendFBScaledIntByLength			82.4%
+rdb.red-soft.ru/fbx/fbtype/register_default_pg_types.go:5:	registerDefaultFbTypeVariants			100.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:24:				ScanText					100.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:29:				TextValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:34:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:53:				Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:60:				MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:68:				UnmarshalJSON					87.5%
+rdb.red-soft.ru/fbx/fbtype/text.go:86:				FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:90:				PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:94:				PlanEncode					85.7%
+rdb.red-soft.ru/fbx/fbtype/text.go:127:				Encode						83.3%
+rdb.red-soft.ru/fbx/fbtype/text.go:142:				Encode						100.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:154:				Encode						83.3%
+rdb.red-soft.ru/fbx/fbtype/text.go:169:				Encode						70.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:188:				PlanScan					57.1%
+rdb.red-soft.ru/fbx/fbtype/text.go:216:				DecodeDatabaseSQLValue				100.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:220:				DecodeValue					76.9%
+rdb.red-soft.ru/fbx/fbtype/text.go:249:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:262:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:283:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/text.go:298:				Scan						85.7%
+rdb.red-soft.ru/fbx/fbtype/text.go:313:				decodeFBString					88.2%
+rdb.red-soft.ru/fbx/fbtype/text.go:343:				encodeFBString					71.4%
+rdb.red-soft.ru/fbx/fbtype/text_format_only_codec.go:7:		FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/text_format_only_codec.go:11:	PreferredFormat					0.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:39:				ScanTime					100.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:44:				TimeValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:49:				Scan						70.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:69:				Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:83:				FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:87:				PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:91:				PlanEncode					66.7%
+rdb.red-soft.ru/fbx/fbtype/time.go:108:				Encode						81.8%
+rdb.red-soft.ru/fbx/fbtype/time.go:131:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:154:				PlanScan					57.1%
+rdb.red-soft.ru/fbx/fbtype/time.go:176:				Scan						87.5%
+rdb.red-soft.ru/fbx/fbtype/time.go:198:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:227:				Scan						86.2%
+rdb.red-soft.ru/fbx/fbtype/time.go:279:				DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/time.go:283:				DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:32:			ScanTimestamp					100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:37:			TimestampValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:42:			Scan						50.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:60:			Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:68:			MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:77:			UnmarshalJSON					84.2%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:119:			FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:123:			PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:127:			PlanEncode					66.7%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:144:			Encode						86.7%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:178:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:196:			PlanScan					100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:215:			Scan						90.9%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:258:			Scan						76.9%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:282:			DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamp.go:296:			DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:28:			ScanTimestamptz					100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:33:			TimestamptzValue				100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:38:			Scan						100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:54:			Value						100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:62:			MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:72:			UnmarshalJSON					91.7%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:96:			FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:100:			PreferredFormat					100.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:104:			PlanEncode					71.4%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:123:			Encode						81.8%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:146:			Encode						83.3%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:165:			Encode						66.7%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:195:			PlanScan					57.1%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:214:			Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:234:			Scan						60.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:262:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:289:			DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:303:			DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:317:			encodeTimestamptzBinary				84.6%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:346:			decodeTimestamptzBinary				85.7%
+rdb.red-soft.ru/fbx/fbtype/timestamptz.go:388:			tzRawFromTime					80.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:26:			ScanUint32					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:31:			Uint32Value					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:36:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:70:			Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:79:			FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:83:			PreferredFormat					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:87:			PlanEncode					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:112:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:119:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:134:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:156:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:163:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:178:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:198:			PlanScan					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:222:			DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:235:			DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:250:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:267:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:288:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint32.go:308:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:26:			ScanUint64					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:31:			Uint64Value					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:36:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:66:			Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:82:			FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:86:			PreferredFormat					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:90:			PlanEncode					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:115:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:122:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:137:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:156:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:163:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:178:			Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:195:			PlanScan					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:219:			DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:232:			DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:247:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:264:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:285:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uint64.go:305:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:23:				ScanUUID					0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:28:				UUIDValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:33:				parseUUID					75.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:54:				encodeUUID					100.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:71:				Scan						64.3%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:97:				Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:105:				String						100.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:113:				MarshalJSON					100.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:125:				UnmarshalJSON					90.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:143:				FormatSupported					0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:147:				PreferredFormat					0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:151:				PlanEncode					0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:168:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:183:				Encode						0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:196:				PlanScan					0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:217:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:236:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:255:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:269:				DecodeDatabaseSQLValue				0.0%
+rdb.red-soft.ru/fbx/fbtype/uuid.go:283:				DecodeValue					0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/float8.go:11:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/float8.go:14:		ScanFloat64					100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/float8.go:25:		Float64Value					100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/float8.go:33:		Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/float8.go:51:		Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:15:			SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:18:			ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:36:			Scan						88.9%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:54:			Value						100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:63:			SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:66:			ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:84:			Scan						88.9%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:102:			Value						100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:111:			SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:114:			ScanInt64					0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:132:			Scan						88.9%
+rdb.red-soft.ru/fbx/fbtype/zeronull/int.go:150:			Value						100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/text.go:11:			SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/text.go:14:			ScanText					100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/text.go:26:			Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/text.go:44:			Value						100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamp.go:12:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamp.go:14:		ScanTimestamp					100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamp.go:24:		TimestampValue					100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamp.go:33:		Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamp.go:51:		Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamptz.go:12:		SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamptz.go:14:		ScanTimestamptz					100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamptz.go:24:		TimestamptzValue				100.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamptz.go:33:		Scan						0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/timestamptz.go:51:		Value						0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/uuid.go:12:			SkipUnderlyingTypePlan				0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/uuid.go:15:			ScanUUID					0.0%
+rdb.red-soft.ru/fbx/fbtype/zeronull/uuid.go:26:			UUIDValue					66.7%
+rdb.red-soft.ru/fbx/fbtype/zeronull/uuid.go:34:			Scan						66.7%
+rdb.red-soft.ru/fbx/fbtype/zeronull/uuid.go:52:			Value						66.7%
+rdb.red-soft.ru/fbx/fbtype/zeronull/zeronull.go:8:		Register					100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:20:				Release						95.8%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:72:				Hijack						85.7%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:86:				Exec						100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:90:				Query						100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:94:				QueryRow					100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:99:				Begin						100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:104:			BeginTx						100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:108:			Ping						100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:112:			Conn						100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:116:			connResource					100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:120:			getPoolRow					100.0%
+rdb.red-soft.ru/fbx/fbxpool/conn.go:124:			getPoolRows					100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:33:				getConn						85.7%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:47:				getPoolRow					85.7%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:61:				getPoolRows					85.7%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:165:			Copy						100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:173:			ConnString					100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:176:			New						75.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:186:			NewWithConfig					88.1%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:309:			ParseConfig					56.1%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:406:			Close						100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:413:			isExpired					100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:417:			triggerHealthCheck				100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:429:			backgroundHealthCheck				100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:444:			checkHealth					85.7%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:468:			checkConnsHealth				100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:493:			checkMinConns					100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:506:			createIdleResources				81.2%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:536:			Acquire						100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:575:			AcquireFunc					80.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:587:			AcquireAllIdle					100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:607:			Reset						100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:612:			Config						100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:615:			Stat						100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:628:			Exec						100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:648:			Query						62.5%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:675:			QueryRow					80.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:689:			Begin						100.0%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:697:			BeginTx						62.5%
+rdb.red-soft.ru/fbx/fbxpool/pool.go:714:			Ping						80.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:12:				Close						0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:13:				Err						0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:14:				QueryStatus					0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:15:				FieldDescriptions				0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:16:				Next						0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:17:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:18:				Values						0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:19:				RawValues					0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:20:				Conn						0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:26:				Scan						0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:34:				Close						100.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:42:				Err						66.7%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:49:				QueryStatus					0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:53:				FieldDescriptions				0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:57:				Next						83.3%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:69:				Scan						75.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:77:				Values						0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:85:				RawValues					0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:89:				Conn						0.0%
+rdb.red-soft.ru/fbx/fbxpool/rows.go:99:				Scan						90.9%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:18:				AcquireCount					100.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:24:				AcquireDuration					0.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:29:				AcquiredConns					100.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:35:				CanceledAcquireCount				0.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:41:				ConstructingConns				0.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:48:				EmptyAcquireCount				0.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:53:				IdleConns					100.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:58:				MaxConns					0.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:65:				TotalConns					100.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:70:				NewConnsCount					100.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:76:				MaxLifetimeDestroyCount				100.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:82:				MaxIdleDestroyCount				100.0%
+rdb.red-soft.ru/fbx/fbxpool/stat.go:89:				EmptyAcquireWaitTime				0.0%
+rdb.red-soft.ru/fbx/fbxpool/tx.go:17:				Begin						100.0%
+rdb.red-soft.ru/fbx/fbxpool/tx.go:25:				Commit						100.0%
+rdb.red-soft.ru/fbx/fbxpool/tx.go:37:				Rollback					100.0%
+rdb.red-soft.ru/fbx/fbxpool/tx.go:46:				LargeObjects					0.0%
+rdb.red-soft.ru/fbx/fbxpool/tx.go:57:				Prepare						0.0%
+rdb.red-soft.ru/fbx/fbxpool/tx.go:61:				Exec						100.0%
+rdb.red-soft.ru/fbx/fbxpool/tx.go:65:				Query						100.0%
+rdb.red-soft.ru/fbx/fbxpool/tx.go:69:				QueryRow					100.0%
+rdb.red-soft.ru/fbx/fbxpool/tx.go:73:				Conn						0.0%
+rdb.red-soft.ru/fbx/fbxtest/fbxtest.go:41:			DefaultConnTestRunner				0.0%
+rdb.red-soft.ru/fbx/fbxtest/fbxtest.go:61:			RunTest						0.0%
+rdb.red-soft.ru/fbx/fbxtest/fbxtest.go:78:			RunWithQueryExecModes				0.0%
+rdb.red-soft.ru/fbx/fbxtest/fbxtest.go:105:			RunValueRoundTripTests				0.0%
+rdb.red-soft.ru/fbx/internal/iobufpool/iobufpool.go:13:		init						100.0%
+rdb.red-soft.ru/fbx/internal/iobufpool/iobufpool.go:26:		Get						100.0%
+rdb.red-soft.ru/fbx/internal/iobufpool/iobufpool.go:39:		getPoolIdx					100.0%
+rdb.red-soft.ru/fbx/internal/iobufpool/iobufpool.go:52:		Put						100.0%
+rdb.red-soft.ru/fbx/internal/iobufpool/iobufpool.go:61:		putPoolIdx					100.0%
+rdb.red-soft.ru/fbx/internal/pgio/write.go:5:			AppendUint16					100.0%
+rdb.red-soft.ru/fbx/internal/pgio/write.go:12:			AppendUint32					100.0%
+rdb.red-soft.ru/fbx/internal/pgio/write.go:19:			AppendUint64					100.0%
+rdb.red-soft.ru/fbx/internal/pgio/write.go:26:			AppendInt16					0.0%
+rdb.red-soft.ru/fbx/internal/pgio/write.go:30:			AppendInt32					0.0%
+rdb.red-soft.ru/fbx/internal/pgio/write.go:34:			AppendInt64					0.0%
+rdb.red-soft.ru/fbx/internal/pgio/write.go:38:			SetInt32					0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:18:		NewLRUCache					0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:27:		Get						0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:39:		Put						0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:64:		Invalidate					0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:73:		InvalidateAll					0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:85:		GetInvalidated					0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:92:		RemoveInvalidated				0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:97:		Len						0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:102:	Cap						0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/lru_cache.go:106:	invalidateOldest				0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/stmtcache.go:13:		StatementName					0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/unlimited_cache.go:16:	NewUnlimitedCache				0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/unlimited_cache.go:23:	Get						0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/unlimited_cache.go:28:	Put						0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/unlimited_cache.go:41:	Invalidate					0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/unlimited_cache.go:49:	InvalidateAll					0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/unlimited_cache.go:58:	GetInvalidated					0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/unlimited_cache.go:65:	RemoveInvalidated				0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/unlimited_cache.go:70:	Len						0.0%
+rdb.red-soft.ru/fbx/internal/stmtcache/unlimited_cache.go:75:	Cap						0.0%
+rdb.red-soft.ru/fbx/large_objects.go:32:			Create						100.0%
+rdb.red-soft.ru/fbx/large_objects.go:39:			Open						0.0%
+rdb.red-soft.ru/fbx/large_objects.go:49:			Unlink						0.0%
+rdb.red-soft.ru/fbx/large_objects.go:77:			Write						0.0%
+rdb.red-soft.ru/fbx/large_objects.go:110:			Read						0.0%
+rdb.red-soft.ru/fbx/large_objects.go:140:			Seek						0.0%
+rdb.red-soft.ru/fbx/large_objects.go:146:			Tell						0.0%
+rdb.red-soft.ru/fbx/large_objects.go:152:			Truncate					0.0%
+rdb.red-soft.ru/fbx/large_objects.go:158:			Close						0.0%
+rdb.red-soft.ru/fbx/named_args.go:24:				RewriteQuery					100.0%
+rdb.red-soft.ru/fbx/named_args.go:33:				RewriteQuery					100.0%
+rdb.red-soft.ru/fbx/named_args.go:52:				rewriteQuery					100.0%
+rdb.red-soft.ru/fbx/named_args.go:94:				rawState					92.9%
+rdb.red-soft.ru/fbx/named_args.go:141:				isLetter					100.0%
+rdb.red-soft.ru/fbx/named_args.go:145:				namedArgState					100.0%
+rdb.red-soft.ru/fbx/named_args.go:173:				singleQuoteState				58.3%
+rdb.red-soft.ru/fbx/named_args.go:195:				doubleQuoteState				58.3%
+rdb.red-soft.ru/fbx/named_args.go:217:				escapeStringState				0.0%
+rdb.red-soft.ru/fbx/named_args.go:242:				oneLineCommentState				45.5%
+rdb.red-soft.ru/fbx/named_args.go:263:				multilineCommentState				73.7%
+rdb.red-soft.ru/fbx/rows.go:98:					Scan						78.6%
+rdb.red-soft.ru/fbx/rows.go:151:				FieldDescriptions				100.0%
+rdb.red-soft.ru/fbx/rows.go:155:				Close						100.0%
+rdb.red-soft.ru/fbx/rows.go:196:				QueryStatus					100.0%
+rdb.red-soft.ru/fbx/rows.go:200:				Err						100.0%
+rdb.red-soft.ru/fbx/rows.go:206:				fatal						75.0%
+rdb.red-soft.ru/fbx/rows.go:215:				Next						87.5%
+rdb.red-soft.ru/fbx/rows.go:230:				Scan						82.9%
+rdb.red-soft.ru/fbx/rows.go:287:				Values						52.2%
+rdb.red-soft.ru/fbx/rows.go:330:				RawValues					100.0%
+rdb.red-soft.ru/fbx/rows.go:334:				Conn						0.0%
+rdb.red-soft.ru/fbx/rows.go:344:				Error						66.7%
+rdb.red-soft.ru/fbx/rows.go:352:				Unwrap						0.0%
+rdb.red-soft.ru/fbx/rows.go:362:				ScanRow						0.0%
+rdb.red-soft.ru/fbx/rows.go:386:				RowsFromResultReader				0.0%
+rdb.red-soft.ru/fbx/rows.go:396:				ForEachRow					90.9%
+rdb.red-soft.ru/fbx/rows.go:432:				AppendRows					88.9%
+rdb.red-soft.ru/fbx/rows.go:453:				CollectRows					100.0%
+rdb.red-soft.ru/fbx/rows.go:461:				CollectOneRow					83.3%
+rdb.red-soft.ru/fbx/rows.go:490:				CollectExactlyOneRow				84.6%
+rdb.red-soft.ru/fbx/rows.go:521:				RowTo						100.0%
+rdb.red-soft.ru/fbx/rows.go:528:				RowToAddrOf					100.0%
+rdb.red-soft.ru/fbx/rows.go:535:				RowToMap					100.0%
+rdb.red-soft.ru/fbx/rows.go:543:				ScanRow						85.7%
+rdb.red-soft.ru/fbx/rows.go:561:				RowToStructByPos				100.0%
+rdb.red-soft.ru/fbx/rows.go:570:				RowToAddrOfStructByPos				100.0%
+rdb.red-soft.ru/fbx/rows.go:580:				ScanRow						100.0%
+rdb.red-soft.ru/fbx/rows.go:597:				lookupStructFields				100.0%
+rdb.red-soft.ru/fbx/rows.go:608:				computeStructFields				100.0%
+rdb.red-soft.ru/fbx/rows.go:639:				RowToStructByName				100.0%
+rdb.red-soft.ru/fbx/rows.go:649:				RowToAddrOfStructByName				100.0%
+rdb.red-soft.ru/fbx/rows.go:658:				RowToStructByNameLax				100.0%
+rdb.red-soft.ru/fbx/rows.go:668:				RowToAddrOfStructByNameLax			100.0%
+rdb.red-soft.ru/fbx/rows.go:679:				ScanRow						100.0%
+rdb.red-soft.ru/fbx/rows.go:709:				lookupNamedStructFields				100.0%
+rdb.red-soft.ru/fbx/rows.go:747:				joinFieldNames					84.6%
+rdb.red-soft.ru/fbx/rows.go:769:				computeNamedStructFields			96.6%
+rdb.red-soft.ru/fbx/rows.go:829:				fieldPosByName					100.0%
+rdb.red-soft.ru/fbx/rows.go:859:				setupStructScanTargets				100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:98:				init						100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:127:				OptionBeforeConnect				100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:134:				OptionAfterConnect				100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:143:				OptionResetSession				100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:153:				RandomizeHostOrderFunc				90.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:175:				GetConnector					100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:194:				GetPoolConnector				60.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:208:				OpenDB						100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:217:				OpenDBFromPool					100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:234:				Connect						78.9%
+rdb.red-soft.ru/fbx/stdlib/sql.go:286:				Driver						0.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:292:				GetDefaultDriver				0.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:302:				Open						0.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:313:				OpenConnector					100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:317:				registerConnConfig				100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:326:				unregisterConnConfig				100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:337:				Connect						86.7%
+rdb.red-soft.ru/fbx/stdlib/sql.go:369:				Driver						0.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:374:				RegisterConnConfig				100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:379:				UnregisterConnConfig				100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:401:				Conn						100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:405:				Prepare						0.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:409:				PrepareContext					71.4%
+rdb.red-soft.ru/fbx/stdlib/sql.go:423:				Close						100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:429:				Begin						0.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:433:				BeginTx						85.7%
+rdb.red-soft.ru/fbx/stdlib/sql.go:466:				ExecContext					75.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:483:				QueryContext					66.7%
+rdb.red-soft.ru/fbx/stdlib/sql.go:505:				Ping						57.1%
+rdb.red-soft.ru/fbx/stdlib/sql.go:521:				CheckNamedValue					100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:526:				ResetSession					100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:547:				Close						100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:562:				NumInput					100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:566:				Exec						0.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:570:				ExecContext					100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:574:				Query						0.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:578:				QueryContext					100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:594:				Columns						100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:607:				ColumnTypeDatabaseTypeName			100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:620:				ColumnTypeLength				75.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:637:				ColumnTypePrecisionScale			100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:653:				ColumnTypeScanType				50.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:680:				Close						100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:685:				Next						62.1%
+rdb.red-soft.ru/fbx/stdlib/sql.go:857:				valueToInterface				0.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:869:				namedValueToInterface				100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:886:				Commit						100.0%
+rdb.red-soft.ru/fbx/stdlib/sql.go:888:				Rollback					100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:32:			String						0.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:61:			Log						100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:75:			LogLevelFromString				0.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:94:			logQueryArgs					78.6%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:128:			DefaultTraceLogConfig				100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:146:			ensureConfig					100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:174:			TraceQueryStart					100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:182:			TraceQueryEnd					100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:206:			TraceConnectStart				100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:213:			TraceConnectEnd					100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:251:			TracePrepareStart				100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:259:			TracePrepareEnd					100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:282:			TraceAcquireStart				100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:288:			TraceAcquireEnd					100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:309:			TraceRelease					100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:316:			shouldLog					100.0%
+rdb.red-soft.ru/fbx/tracelog/tracelog.go:320:			log						80.0%
+rdb.red-soft.ru/fbx/tx.go:47:					Begin						100.0%
+rdb.red-soft.ru/fbx/tx.go:53:					BeginTx						77.4%
+rdb.red-soft.ru/fbx/tx.go:161:					Begin						71.4%
+rdb.red-soft.ru/fbx/tx.go:176:					Commit						71.4%
+rdb.red-soft.ru/fbx/tx.go:194:					Rollback					100.0%
+rdb.red-soft.ru/fbx/tx.go:211:					Exec						66.7%
+rdb.red-soft.ru/fbx/tx.go:220:					Prepare						66.7%
+rdb.red-soft.ru/fbx/tx.go:229:					Query						50.0%
+rdb.red-soft.ru/fbx/tx.go:240:					QueryRow					100.0%
+rdb.red-soft.ru/fbx/tx.go:246:					LargeObjects					100.0%
+rdb.red-soft.ru/fbx/tx.go:250:					Conn						0.0%
+rdb.red-soft.ru/fbx/tx.go:262:					Begin						66.7%
+rdb.red-soft.ru/fbx/tx.go:271:					Commit						80.0%
+rdb.red-soft.ru/fbx/tx.go:284:					Rollback					100.0%
+rdb.red-soft.ru/fbx/tx.go:295:					Exec						66.7%
+rdb.red-soft.ru/fbx/tx.go:304:					Prepare						0.0%
+rdb.red-soft.ru/fbx/tx.go:313:					Query						0.0%
+rdb.red-soft.ru/fbx/tx.go:324:					QueryRow					0.0%
+rdb.red-soft.ru/fbx/tx.go:329:					LargeObjects					0.0%
+rdb.red-soft.ru/fbx/tx.go:333:					Conn						0.0%
+rdb.red-soft.ru/fbx/tx.go:340:					BeginFunc					80.0%
+rdb.red-soft.ru/fbx/tx.go:359:					BeginTxFunc					0.0%
+rdb.red-soft.ru/fbx/tx.go:376:					beginFuncExec					88.9%
+total:								(statements)					53.1%
+section_end:1766740731:after_script
+[0Ksection_start:1766740731:archive_cache_on_failure
+[0K[0K[36;1mSaving cache for failed job[0;m[0;m
+[32;1mCreating cache default-non_protected...[0;m
+.go/pkg/mod/: found 7042 matching artifact files and directories[0;m 
+Archive is up to date!                            [0;m 
+[32;1mCreated cache[0;m
+section_end:1766740733:archive_cache_on_failure
+[0Ksection_start:1766740733:upload_artifacts_on_failure
+[0K[0K[36;1mUploading artifacts for failed job[0;m[0;m
+[32;1mUploading artifacts...[0;m
+cover.html: found 1 matching artifact files and directories[0;m 
+Uploading artifacts as "archive" to coordinator... 201 Created[0;m  correlation_id[0;m=01KDCZ8BS8W71GCEDNHV2JFGKC id[0;m=736738 responseStatus[0;m=201 Created token[0;m=64_C2wUtG
+section_end:1766740735:upload_artifacts_on_failure
+[0Ksection_start:1766740735:cleanup_file_variables
+[0K[0K[36;1mCleaning up project directory and file based variables[0;m[0;m
+section_end:1766740737:cleanup_file_variables
+[0K[31;1mERROR: Job failed: exit code 1[0;m

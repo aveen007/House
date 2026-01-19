@@ -1,0 +1,134 @@
+{
+  "info": {
+    "name": "Contracts API",
+    "description": "API для работы с контрактами пациентов",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Get All Terms & Conditions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/contracts/terms",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "contracts", "terms"]
+        },
+        "description": "Получить список всех доступных условий договора"
+      }
+    },
+    {
+      "name": "2. Get Patient Contracts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/contracts/patient/7",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "contracts", "patient", "7"]
+        },
+        "description": "Получить все контракты конкретного пациента"
+      }
+    },
+    {
+      "name": "3. Create Contract",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patientId\": 7,\n  \"termsId\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/contracts",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "contracts"]
+        },
+        "description": "Создать новый контракт для пациента (статус DRAFT)"
+      }
+    },
+    {
+      "name": "4. Get Contract by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/contracts/3",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "contracts", "3"]
+        },
+        "description": "Получить детальную информацию о контракте"
+      }
+    },
+    {
+      "name": "5. Update Contract (Change Status to READY)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"READY\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/contracts/3",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "contracts", "3"]
+        },
+        "description": "Обновить контракт (изменить статус или условия)"
+      }
+    },
+    {
+      "name": "6. Sign Contract",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patientId\": 7,\n  \"signedBy\": \"Иван Иванов\",\n  \"signature\": \"e-signature-hash-12345\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/contracts/3/sign",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8080",
+          "path": ["api", "contracts", "3", "sign"]
+        },
+        "description": "Подписать контракт (контракт должен быть в статусе READY)"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}
+

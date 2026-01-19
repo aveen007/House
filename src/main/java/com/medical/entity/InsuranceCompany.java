@@ -18,7 +18,7 @@ public class InsuranceCompany {
     @Column(name = "api_url", nullable = false)
     private String apiUrl;
 
-    @Column(name = "key", nullable = false)
+    @Column(name = "api_key", nullable = false)
     private String apiKey;
 
     public String getApiUrl()

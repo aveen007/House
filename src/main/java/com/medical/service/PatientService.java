@@ -7,6 +7,7 @@ import com.medical.exception.InsuranceVerificationException;
 import com.medical.exception.ResourceNotFoundException;
 import com.medical.repository.InsuranceCompanyRepository;
 import com.medical.repository.PatientRepository;
+import com.medical.security.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final InsuranceCompanyRepository insuranceCompanyRepository;
     private final InsuranceClient insuranceClient;
+    private final SecurityUtils securityUtils;
 
     @Transactional
     public Patient createPatient(PatientRequest request, boolean verifyInsurance) {
@@ -78,6 +80,7 @@ public class PatientService {
     }
 
     public Patient getPatient(Integer patientId) {
+        securityUtils.assertPatientAccess(patientId);
         return patientRepository.findById(patientId)
                 .orElseThrow(() -> new ResourceNotFoundException("Patient not found"));
     }
