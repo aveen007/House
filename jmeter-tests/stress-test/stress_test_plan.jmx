@@ -57,8 +57,8 @@
       <hashTree/>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="View Patients Thread Group" enabled="true">
         <intProp name="ThreadGroup.num_threads">20</intProp>
-        <intProp name="ThreadGroup.ramp_time">300</intProp>
-        <longProp name="ThreadGroup.duration">2100</longProp>
+        <intProp name="ThreadGroup.ramp_time">180</intProp>
+        <longProp name="ThreadGroup.duration">780</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -100,8 +100,8 @@
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Manage Patients Thread Group" enabled="true">
         <intProp name="ThreadGroup.num_threads">15</intProp>
-        <intProp name="ThreadGroup.ramp_time">300</intProp>
-        <longProp name="ThreadGroup.duration">2100</longProp>
+        <intProp name="ThreadGroup.ramp_time">180</intProp>
+        <longProp name="ThreadGroup.duration">780</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -180,8 +180,8 @@
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Bets Thread Group" enabled="true">
         <intProp name="ThreadGroup.num_threads">10</intProp>
-        <intProp name="ThreadGroup.ramp_time">300</intProp>
-        <longProp name="ThreadGroup.duration">2100</longProp>
+        <intProp name="ThreadGroup.ramp_time">180</intProp>
+        <longProp name="ThreadGroup.duration">780</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
@@ -265,8 +265,8 @@
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="External APIs Thread Group" enabled="true">
         <intProp name="ThreadGroup.num_threads">5</intProp>
-        <intProp name="ThreadGroup.ramp_time">300</intProp>
-        <longProp name="ThreadGroup.duration">2100</longProp>
+        <intProp name="ThreadGroup.ramp_time">180</intProp>
+        <longProp name="ThreadGroup.duration">780</longProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>

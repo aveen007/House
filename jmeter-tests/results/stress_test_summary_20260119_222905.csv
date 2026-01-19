@@ -1,0 +1,2 @@
+Step,TotalUsers,ViewUsers,ManageUsers,BetsUsers,ExtUsers,StartTime,EndTime,TotalSamples,ErrorRate,AvgResponseTime,p90,p95,p99,Status
+1,50,20,15,10,5,2026-01-19 22:29:17,ERROR,0,100.00,0,N/A,N/A,N/A,FAILED
