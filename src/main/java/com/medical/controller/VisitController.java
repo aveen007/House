@@ -2,7 +2,6 @@ package com.medical.controller;
 
 import com.medical.dto.VisitRequest;
 import com.medical.dto.VisitSymptomsRequest;
-import com.medical.entity.Patient;
 import com.medical.entity.Visit;
 import com.medical.entity.VisitHDStatus;
 import com.medical.service.VisitService;
@@ -10,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +26,8 @@ public class VisitController {
         try {
             Visit visit = visitService.createVisit(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(visit);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error creating patient: " + e.getMessage());
@@ -42,6 +44,8 @@ public class VisitController {
         try {
             Visit updatedVisit = visitService.updateVisitHDStatus(visitId, new_status);
             return ResponseEntity.ok(updatedVisit);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error updating visit: " + e.getMessage());
@@ -55,6 +59,8 @@ public class VisitController {
         try {
             var visits = visitService.getAllAcceptedVisits();
             return ResponseEntity.ok(visits);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error getting visits: " + e.getMessage());
@@ -68,6 +74,8 @@ public class VisitController {
         try {
                 var visits = visitService.getAllHDAwatingVisits();
                 return ResponseEntity.ok(visits);
+            } catch (AccessDeniedException e) {
+                throw e;
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                         .body("Error getting visits: " + e.getMessage());
@@ -81,6 +89,8 @@ public class VisitController {
         try {
             var visits = visitService.getAllPatientVisits(patientId);
             return ResponseEntity.ok(visits);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error getting visits: " + e.getMessage());
@@ -98,6 +108,8 @@ public class VisitController {
         try {
             visitService.addSymptomVisit(visitId, request);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error creating patient: " + e.getMessage());

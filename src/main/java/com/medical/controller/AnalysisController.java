@@ -4,13 +4,13 @@ import com.medical.dto.AnalysisResultRequest;
 import com.medical.dto.PatientAnalysisRequest;
 import com.medical.entity.Analysis;
 import com.medical.entity.AnalysisStatus;
-import com.medical.entity.Patient;
 import com.medical.entity.PatientAnalysis;
 import com.medical.service.AnalysisService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +30,8 @@ public class AnalysisController {
         try {
             List<Analysis> analyses = analysisService.getAllAnalysis();
             return ResponseEntity.ok(analyses);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error retrieving analyses: " + e.getMessage());
@@ -47,6 +49,8 @@ public class AnalysisController {
         try {
             var analysisResult = analysisService.createAnalysisResult(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(analysisResult);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error creating analysis result: " + e.getMessage());
@@ -63,6 +67,8 @@ public class AnalysisController {
         try {
             PatientAnalysis patientAnalysis = analysisService.createPatientAnalysis(request);
             return ResponseEntity.status(HttpStatus.CREATED).body(patientAnalysis);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error creating patient analysis: " + e.getMessage());
@@ -77,6 +83,8 @@ public class AnalysisController {
         try {
             var patientAnalysis = analysisService.getPatientAnalyses(patientId);
             return ResponseEntity.status(HttpStatus.CREATED).body(patientAnalysis);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error getting analyses: " + e.getMessage());
@@ -92,6 +100,8 @@ public class AnalysisController {
         try {
             var patientsAnalyses = analysisService.getAwaitingHDAnalyses();
             return ResponseEntity.status(HttpStatus.CREATED).body(patientsAnalyses);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error getting analyses: " + e.getMessage());
@@ -105,6 +115,8 @@ public class AnalysisController {
         try {
             var patientsAnalyses = analysisService.getApprovedAnalyses();
             return ResponseEntity.status(HttpStatus.CREATED).body(patientsAnalyses);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error getting analyses: " + e.getMessage());
@@ -119,6 +131,8 @@ public class AnalysisController {
         try {
             var betAnalysis = analysisService.getBetAnalyses(betId);
             return ResponseEntity.status(HttpStatus.CREATED).body(betAnalysis);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error getting analyses: " + e.getMessage());
@@ -135,6 +149,8 @@ public class AnalysisController {
             PatientAnalysis patientAnalysis =
                     analysisService.updatePatientAnalysisStatus(patientAnalysisId, status);
             return ResponseEntity.status(HttpStatus.CREATED).body(patientAnalysis);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error updating status: " + e.getMessage());

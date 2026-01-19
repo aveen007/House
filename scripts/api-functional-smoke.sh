@@ -6,7 +6,8 @@ AUTH_USER="${AUTH_USER:-admin}"
 AUTH_PASS="${AUTH_PASS:-password}"
 
 tmp_body="$(mktemp)"
-cleanup() { rm -f "$tmp_body"; }
+cookie_jar="$(mktemp)"
+cleanup() { rm -f "$tmp_body" "$cookie_jar"; }
 trap cleanup EXIT
 
 request() {
@@ -15,15 +16,26 @@ request() {
   local data="${3:-}"
   local content_type="${4:-application/json}"
 
+  local csrf_token=""
+  local csrf_body=""
+  if [[ "$method" != "GET" && "$method" != "HEAD" ]]; then
+    # Ensure CSRF token is present in cookie jar
+    csrf_body="$(curl -sS -u "${AUTH_USER}:${AUTH_PASS}" -b "$cookie_jar" -c "$cookie_jar" "${BASE_URL}/auth/csrf" || true)"
+    csrf_token="$(python3 -c 'import json,sys; print(json.load(sys.stdin).get("token",""))' <<<"$csrf_body" 2>/dev/null || true)"
+  fi
+
   if [[ -n "$data" ]]; then
     http_code="$(curl -sS -o "$tmp_body" -w "%{http_code}" \
       -u "${AUTH_USER}:${AUTH_PASS}" \
+      -b "$cookie_jar" -c "$cookie_jar" \
+      ${csrf_token:+-H "X-XSRF-TOKEN: ${csrf_token}"} \
       -H "Content-Type: ${content_type}" \
       -X "$method" "${BASE_URL}${url}" \
       -d "$data")"
   else
     http_code="$(curl -sS -o "$tmp_body" -w "%{http_code}" \
       -u "${AUTH_USER}:${AUTH_PASS}" \
+      -b "$cookie_jar" -c "$cookie_jar" \
       -X "$method" "${BASE_URL}${url}")"
   fi
   echo "$http_code"

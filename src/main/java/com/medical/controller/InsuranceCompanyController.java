@@ -1,11 +1,11 @@
 package com.medical.controller;
 
 import com.medical.entity.InsuranceCompany;
-import com.medical.entity.Patient;
 import com.medical.service.InsuranceCompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +27,8 @@ public class InsuranceCompanyController {
         try {
             List<InsuranceCompany> companies = insuranceCompanyService.getAllInsuranceCompanies();
             return ResponseEntity.ok(companies);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error retrieving insurance companies: " + e.getMessage());

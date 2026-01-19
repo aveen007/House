@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -27,6 +28,8 @@ public class PatientController {
         try {
             Patient patient = patientService.createPatient(request, verifyInsurance);
             return ResponseEntity.status(HttpStatus.CREATED).body(patient);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error creating patient: " + e.getMessage());
@@ -39,6 +42,8 @@ public class PatientController {
         try {
             List<Patient> patients = patientService.getAllPatients();
             return ResponseEntity.ok(patients);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error retrieving patients: " + e.getMessage());
@@ -51,6 +56,8 @@ public class PatientController {
         try {
             Patient patient = patientService.getPatient(patientId);
             return ResponseEntity.ok(patient);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error retrieving patient: " + e.getMessage());
@@ -63,6 +70,8 @@ public class PatientController {
         try {
             Patient updatedPatient = patientService.updatePatient(request);
             return ResponseEntity.ok(updatedPatient);
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Error updating patient: " + e.getMessage());
@@ -75,6 +84,8 @@ public class PatientController {
         try {
             patientService.deletePatient(patientId);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        } catch (AccessDeniedException e) {
+            throw e;
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Error deleting patient: " + e.getMessage());
