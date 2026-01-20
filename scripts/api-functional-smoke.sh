@@ -184,5 +184,14 @@ echo "15) Get patient contracts"
 code="$(request GET "/api/contracts/patient/${patient_id}")"
 [[ "$code" == "200" ]] || { echo "Expected 200, got $code"; cat "$tmp_body"; exit 1; }
 
+echo "16) Finalize bet (FR-11/FR-12)"
+finalize_payload="$(cat <<EOF
+{"betId":${bet_id},"visitId":${visit_id},"diagnosis":"Pneumonia","amount":500}
+EOF
+)"
+code="$(request POST "/api/finalizeBet" "$finalize_payload")"
+[[ "$code" == "200" ]] || { echo "Expected 200, got $code"; cat "$tmp_body"; exit 1; }
+echo "Bet finalized successfully"
+
 echo "API smoke completed successfully."
 

@@ -13,8 +13,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class VisitServiceTest {
@@ -65,6 +64,34 @@ class VisitServiceTest {
         Visit updated = visitService.updateVisitHDStatus(5, VisitHDStatus.Accepted);
 
         assertEquals(VisitHDStatus.Accepted, updated.getHdStatus());
+    }
+
+    @Test
+    void createVisit_patientNotFound_throws() {
+        // TC-FR02-02: Создание визита для несуществующего пациента (Альтернативный поток)
+        var request = new VisitRequest();
+        request.setPatientId(999);
+        request.setDateOfVisit(LocalDate.now());
+
+        when(patientRepository.existsById(999)).thenReturn(false);
+
+        assertThrows(IllegalArgumentException.class, () -> visitService.createVisit(request));
+        verify(visitRepository, never()).save(any());
+    }
+
+    @Test
+    void createVisit_duplicate_throws() {
+        // TC-FR02-03: Создание дубликата визита (Альтернативный поток)
+        var request = new VisitRequest();
+        request.setPatientId(1);
+        request.setDateOfVisit(LocalDate.now());
+
+        when(patientRepository.existsById(1)).thenReturn(true);
+        when(visitRepository.existsByPatientIdAndDateOfVisit(1, request.getDateOfVisit()))
+                .thenReturn(true); // Визит уже существует
+
+        assertThrows(IllegalArgumentException.class, () -> visitService.createVisit(request));
+        verify(visitRepository, never()).save(any());
     }
 }
 
