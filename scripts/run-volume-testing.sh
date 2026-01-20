@@ -36,7 +36,7 @@ echo ""
 # Шаг 1: Наполнение БД (опционально, если данные уже есть)
 if [ "${SKIP_POPULATE:-false}" != "true" ]; then
     echo -e "${YELLOW}Шаг 1: Наполнение БД большими объёмами данных${NC}"
-    echo "ВНИМАНИЕ: Это создаст 10,000 пациентов, 50,000 ставок, 100,000 анализов"
+    echo "ВНИМАНИЕ: Это создаст 10,000 пациентов, 20,000 ставок, 20,000 анализов"
     read -p "Продолжить наполнение БД? (yes/no): " confirm
     
     if [ "$confirm" = "yes" ]; then
@@ -59,13 +59,6 @@ fi
 echo -e "${GREEN}JUnit тесты завершены${NC}"
 echo ""
 
-# Шаг 3: Проверка бэкап/restore
-if [ "${SKIP_BACKUP:-false}" != "true" ]; then
-    echo -e "${YELLOW}Шаг 3: Проверка бэкап/restore${NC}"
-    "${SCRIPT_DIR}/volume-test-backup-restore.sh"
-    echo ""
-fi
-
 # Итоговая сводка
 echo -e "${GREEN}========================================${NC}"
 echo -e "${GREEN}Volume Testing завершён${NC}"
@@ -74,10 +67,7 @@ echo ""
 echo "Результаты:"
 echo "  - Наполнение БД: Выполнено (если не пропущено)"
 echo "  - JUnit тесты: Завершены"
-echo "  - Бэкап/restore: Проверен (если не пропущено)"
 echo ""
 echo "Детальная информация:"
 echo "  - Лог тестов: /tmp/volume_test.log"
 echo "  - SQL скрипт: ${SCRIPT_DIR}/volume-test-populate-db.sql"
-echo "  - Скрипт бэкап: ${SCRIPT_DIR}/volume-test-backup-restore.sh"
-

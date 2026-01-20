@@ -18,7 +18,7 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${GREEN}=== Проверка бэкап/restore для Volume Testing ===${NC}"
+echo -e "${GREEN}=== Проверка бэкапа БД для Volume Testing ===${NC}"
 echo ""
 
 # Создание директории для бэкапов
@@ -118,12 +118,5 @@ if [ "${SKIP_RESTORE:-false}" != "true" ]; then
     echo ""
 fi
 
-# Итоговая сводка
-echo -e "${GREEN}=== Итоговая сводка ===${NC}"
-echo "Размер БД: $DB_SIZE_BEFORE"
-echo "Время создания бэкапа: ${BACKUP_TIME} сек"
-echo "Размер файла бэкапа: $BACKUP_SIZE"
-echo "Файл бэкапа: $BACKUP_FILE"
-echo ""
-echo -e "${GREEN}Проверка бэкап/restore завершена успешно${NC}"
+echo -e "${GREEN}Проверка бэкапа завершена успешно${NC}"
 

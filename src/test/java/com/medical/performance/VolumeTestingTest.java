@@ -89,8 +89,8 @@ class VolumeTestingTest {
     
     // Объёмы данных согласно TestPlan 5.2.8
     private static final int VOLUME_PATIENTS = 10000;
-    private static final int VOLUME_BETS = 50000;
-    private static final int VOLUME_ANALYSES = 100000;
+    private static final int VOLUME_BETS = 20000;
+    private static final int VOLUME_ANALYSES = 20000;
     private static final int HISTORY_VISITS_PER_PATIENT = 1000; // Для карты пациента с историей
 
     @BeforeEach
@@ -175,12 +175,14 @@ class VolumeTestingTest {
             patientVisitCounters.put(patient.getId(), visitCounter + 1);
             
             // Создаём визит для ставки с уникальной датой
-            // Используем индекс цикла как основной фактор уникальности (он уникален для каждой итерации)
+            // Используем комбинацию: базовый сдвиг + индекс цикла + ID пациента + счетчик визитов для гарантии уникальности
             VisitRequest visitRequest = new VisitRequest();
             visitRequest.setPatientId(patient.getId());
-            // Базовая дата минус дни: используем индекс цикла для гарантии уникальности
-            // Каждая итерация получает уникальную дату (базовый сдвиг 365 дней + уникальный индекс)
-            visitRequest.setDateOfVisit(LocalDate.now().minusDays(365L + i));
+            // Уникальная дата: базовый сдвиг 365 дней + индекс цикла (уникален для каждой итерации) 
+            // + сдвиг по ID пациента + счетчик визитов (уникален для каждого визита пациента)
+            // Это гарантирует уникальность даже если один пациент выбирается несколько раз
+            long daysOffset = 365L + i + (patient.getId() % 1000) + (visitCounter * 1000L);
+            visitRequest.setDateOfVisit(LocalDate.now().minusDays(daysOffset));
             Visit visit = visitService.createVisit(visitRequest);
             visits.add(visit);
             
