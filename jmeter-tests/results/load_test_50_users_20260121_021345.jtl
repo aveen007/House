@@ -1,0 +1,261 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1768950826130,175,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,560,288,1,4,http://localhost:9314/api/insurance_check,172,0,18
+1768950826307,22,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,22,0,0
+1768950826330,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826333,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,5,0,0
+1768950826338,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826342,18,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,18,0,0
+1768950826361,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826365,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826370,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826373,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826377,7,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,7,0,0
+1768950826384,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826388,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826392,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826395,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826398,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826402,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826406,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826410,16,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,16,0,0
+1768950826426,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826430,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826434,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826439,6,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,5,0,0
+1768950826130,335,Get All Patients,200,,Manage Patients Thread Group 2-1,text,true,,4727493,174,1,4,http://localhost:9314/api/getPatients,299,0,18
+1768950826445,22,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,22,0,0
+1768950826465,2,Get CSRF Token,200,,Manage Patients Thread Group 2-1,text,true,,661,221,1,4,http://localhost:9314/auth/csrf,2,0,0
+1768950826468,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826472,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,5,0,0
+1768950826478,13,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,13,0,0
+1768950826471,20,Create Patient,201,,Manage Patients Thread Group 2-1,text,true,,671,633,1,4,http://localhost:9314/api/createPatient?verifyInsurance=false,20,0,0
+1768950826492,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,5,0,0
+1768950826497,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,5,0,0
+1768950826503,29,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,29,0,0
+1768950826533,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826537,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826130,308,Get All Patients,200,,View Patients Thread Group 1-1,text,true,,4727493,174,1,4,http://localhost:9314/api/getPatients,280,0,18
+1768950826544,16,Get Patient by ID,200,,View Patients Thread Group 1-1,text,true,,656,242,1,4,http://localhost:9314/api/getPatient?patientId=53742,16,0,0
+1768950826542,18,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,18,0,0
+1768950826561,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826566,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,4,0,0
+1768950826571,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826575,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,4,http://localhost:9314/api/insurance_check,3,0,0
+1768950826579,22,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,5,http://localhost:9314/api/insurance_check,22,0,0
+1768950826602,133,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,6,http://localhost:9314/api/insurance_check,133,0,0
+1768950826736,43,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,43,0,0
+1768950826780,49,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,49,0,0
+1768950826832,29,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,29,0,0
+1768950826492,383,Get All Patients,200,,Manage Patients Thread Group 2-1,text,true,,4727658,276,2,7,http://localhost:9314/api/getPatients,287,0,0
+1768950826877,6,Get CSRF Token,200,,Manage Patients Thread Group 2-1,text,true,,592,270,2,7,http://localhost:9314/auth/csrf,6,0,0
+1768950826862,22,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,21,0,0
+1768950826884,59,Create Patient,201,,Manage Patients Thread Group 2-1,text,true,,671,633,2,7,http://localhost:9314/api/createPatient?verifyInsurance=false,59,0,0
+1768950826885,122,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,122,0,0
+1768950826561,352,Get All Patients,200,,View Patients Thread Group 1-1,text,true,,4727658,227,2,7,http://localhost:9314/api/getPatients,298,0,0
+1768950827010,6,Get Patient by ID,200,,View Patients Thread Group 1-1,text,true,,656,242,2,7,http://localhost:9314/api/getPatient?patientId=53742,6,0,0
+1768950827007,12,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,12,0,0
+1768950827019,8,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,8,0,0
+1768950827028,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,4,0,0
+1768950827033,16,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,16,0,0
+1768950827049,13,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,13,0,0
+1768950827062,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,4,0,0
+1768950827067,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,4,0,0
+1768950827071,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,5,0,0
+1768950827077,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,4,0,0
+1768950827082,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,3,0,0
+1768950827085,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,3,0,0
+1768950827089,18,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,7,http://localhost:9314/api/insurance_check,18,0,0
+1768950827108,22,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,22,0,0
+1768950827131,38,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,38,0,0
+1768950827170,35,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,35,0,0
+1768950827205,49,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,49,0,0
+1768950826598,587,Get All Patients,200,,View Patients Thread Group 1-2,text,true,,4727733,174,3,9,http://localhost:9314/api/getPatients,521,0,1
+1768950827016,180,Get All Patients,200,,View Patients Thread Group 1-1,text,true,,4727899,227,3,9,http://localhost:9314/api/getPatients,150,0,0
+1768950826946,328,Get All Patients,200,,Manage Patients Thread Group 2-1,text,true,,4727899,276,2,9,http://localhost:9314/api/getPatients,215,0,0
+1768950826777,526,Get All Patients,200,,Manage Patients Thread Group 2-2,text,true,,4727974,174,2,9,http://localhost:9314/api/getPatients,370,0,5
+1768950827279,33,Get CSRF Token,200,,Manage Patients Thread Group 2-1,text,true,,592,270,2,9,http://localhost:9314/auth/csrf,33,0,0
+1768950827303,13,Get CSRF Token,200,,Manage Patients Thread Group 2-2,text,true,,661,221,2,9,http://localhost:9314/auth/csrf,13,0,0
+1768950827274,43,Get Patient by ID,200,,View Patients Thread Group 1-1,text,true,,656,242,3,9,http://localhost:9314/api/getPatient?patientId=53742,43,0,0
+1768950827270,48,Get Patient by ID,200,,View Patients Thread Group 1-2,text,true,,656,242,3,9,http://localhost:9314/api/getPatient?patientId=53742,48,0,0
+1768950827255,72,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,72,0,0
+1768950827316,58,Create Patient,201,,Manage Patients Thread Group 2-2,text,true,,671,633,2,9,http://localhost:9314/api/createPatient?verifyInsurance=false,58,0,0
+1768950827328,54,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,54,0,0
+1768950827383,10,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,10,0,0
+1768950827394,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,3,0,0
+1768950827397,7,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,7,0,0
+1768950827405,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,5,0,0
+1768950827411,11,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,9,http://localhost:9314/api/insurance_check,11,0,0
+1768950827422,23,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,23,0,0
+1768950827446,15,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,15,0,0
+1768950827313,151,Create Patient,201,,Manage Patients Thread Group 2-1,text,true,,671,633,3,10,http://localhost:9314/api/createPatient?verifyInsurance=false,151,0,0
+1768950827462,3,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,3,0,0
+1768950827466,10,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,10,0,0
+1768950827477,6,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,6,0,0
+1768950827486,7,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,6,0,0
+1768950827493,6,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,6,0,0
+1768950827499,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,4,0,0
+1768950827504,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,5,0,0
+1768950827510,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,4,0,0
+1768950827514,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,4,0,0
+1768950827518,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,5,0,0
+1768950827523,6,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,6,0,0
+1768950827529,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,5,0,0
+1768950827535,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,4,0,0
+1768950827539,7,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,7,0,0
+1768950827546,7,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,7,0,0
+1768950827554,12,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,12,0,0
+1768950827567,6,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,6,0,0
+1768950827573,8,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,8,0,0
+1768950827581,5,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,5,0,0
+1768950827587,4,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,10,http://localhost:9314/api/insurance_check,4,0,0
+1768950827591,52,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,12,http://localhost:9314/api/insurance_check,48,0,0
+1768950827645,25,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,12,http://localhost:9314/api/insurance_check,25,0,0
+1768950827670,37,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,12,http://localhost:9314/api/insurance_check,37,0,0
+1768950827113,626,Get All Patients,200,,View Patients Thread Group 1-3,text,true,,4727974,174,4,12,http://localhost:9314/api/getPatients,604,0,6
+1768950827709,46,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,12,http://localhost:9314/api/insurance_check,45,0,0
+1768950827753,11,Get Patient by ID,200,,View Patients Thread Group 1-3,text,true,,656,242,4,12,http://localhost:9314/api/getPatient?patientId=53742,11,0,0
+1768950827374,400,Get All Patients,200,,Manage Patients Thread Group 2-2,text,true,,4728139,276,3,12,http://localhost:9314/api/getPatients,364,0,0
+1768950827775,1,Get CSRF Token,200,,Manage Patients Thread Group 2-2,text,true,,592,270,3,12,http://localhost:9314/auth/csrf,1,0,0
+1768950827755,43,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,12,http://localhost:9314/api/insurance_check,43,0,0
+1768950827323,455,Get All Patients,200,,View Patients Thread Group 1-2,text,true,,4727899,227,4,12,http://localhost:9314/api/getPatients,328,0,0
+1768950827464,339,Get All Patients,200,,Manage Patients Thread Group 2-1,text,true,,4728379,276,3,12,http://localhost:9314/api/getPatients,270,0,0
+1768950827804,0,Get CSRF Token,200,,Manage Patients Thread Group 2-1,text,true,,592,270,3,12,http://localhost:9314/auth/csrf,0,0,0
+1768950827799,28,Get Patient by ID,200,,View Patients Thread Group 1-2,text,true,,656,242,4,12,http://localhost:9314/api/getPatient?patientId=53742,28,0,0
+1768950827776,64,Create Patient,201,,Manage Patients Thread Group 2-2,text,true,,671,633,3,12,http://localhost:9314/api/createPatient?verifyInsurance=false,64,0,0
+1768950827318,507,Get All Patients,200,,View Patients Thread Group 1-1,text,true,,4727899,227,4,12,http://localhost:9314/api/getPatients,418,0,0
+1768950827798,62,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,12,http://localhost:9314/api/insurance_check,62,0,0
+1768950827805,92,Create Patient,201,,Manage Patients Thread Group 2-1,text,true,,671,633,3,12,http://localhost:9314/api/createPatient?verifyInsurance=false,92,0,0
+1768950827859,164,Get Patient by ID,200,,View Patients Thread Group 1-1,text,true,,656,242,4,12,http://localhost:9314/api/getPatient?patientId=53742,164,0,0
+1768950827860,204,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,1,12,http://localhost:9314/api/insurance_check,204,0,0
+1768950827765,389,Get All Patients,200,,View Patients Thread Group 1-3,text,true,,4728379,227,5,16,http://localhost:9314/api/getPatients,370,0,0
+1768950827828,484,Get All Patients,200,,View Patients Thread Group 1-2,text,true,,4728619,227,5,16,http://localhost:9314/api/getPatients,426,0,0
+1768950827841,490,Get All Patients,200,,Manage Patients Thread Group 2-2,text,true,,4728619,276,4,16,http://localhost:9314/api/getPatients,458,0,0
+1768950827441,889,Get All Patients,200,,Manage Patients Thread Group 2-3,text,true,,4728454,174,4,16,http://localhost:9314/api/getPatients,858,0,2
+1768950828331,4,Get CSRF Token,200,,Manage Patients Thread Group 2-2,text,true,,592,270,4,16,http://localhost:9314/auth/csrf,4,0,0
+1768950828331,6,Get CSRF Token,200,,Manage Patients Thread Group 2-3,text,true,,661,221,4,16,http://localhost:9314/auth/csrf,6,0,0
+1768950827897,446,Get All Patients,200,,Manage Patients Thread Group 2-1,text,true,,4728859,276,4,16,http://localhost:9314/api/getPatients,422,0,0
+1768950828065,306,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,2,16,http://localhost:9314/api/insurance_check,306,0,0
+1768950828343,28,Get CSRF Token,200,,Manage Patients Thread Group 2-1,text,true,,592,270,4,16,http://localhost:9314/auth/csrf,28,0,0
+1768950828164,253,Get Patient by ID,200,,View Patients Thread Group 1-3,text,true,,656,242,5,16,http://localhost:9314/api/getPatient?patientId=53742,253,0,0
+1768950828329,94,Get Patient by ID,200,,View Patients Thread Group 1-2,text,true,,656,242,5,16,http://localhost:9314/api/getPatient?patientId=53742,94,0,0
+1768950827599,828,Get All Patients,200,,View Patients Thread Group 1-4,text,true,,4728934,174,5,16,http://localhost:9314/api/getPatients,734,0,1
+1768950828024,411,Get All Patients,200,,View Patients Thread Group 1-1,text,true,,4728859,227,5,16,http://localhost:9314/api/getPatients,376,0,0
+1768950828337,136,Create Patient,201,,Manage Patients Thread Group 2-2,text,true,,671,633,4,16,http://localhost:9314/api/createPatient?verifyInsurance=false,136,0,0
+1768950828338,136,Create Patient,201,,Manage Patients Thread Group 2-3,text,true,,671,633,4,16,http://localhost:9314/api/createPatient?verifyInsurance=false,136,0,0
+1768950828371,104,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,2,16,http://localhost:9314/api/insurance_check,103,0,0
+1768950828371,133,Create Patient,201,,Manage Patients Thread Group 2-1,text,true,,671,633,4,16,http://localhost:9314/api/createPatient?verifyInsurance=false,133,0,0
+1768950828438,72,Get Patient by ID,200,,View Patients Thread Group 1-4,text,true,,656,242,5,16,http://localhost:9314/api/getPatient?patientId=53742,72,0,0
+1768950828451,59,Get Patient by ID,200,,View Patients Thread Group 1-1,text,true,,656,242,5,16,http://localhost:9314/api/getPatient?patientId=53742,59,0,0
+1768950828475,112,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,2,16,http://localhost:9314/api/insurance_check,110,0,0
+1768950828508,808,Get All Patients,200,,Manage Patients Thread Group 2-1,text,true,,4729579,276,5,21,http://localhost:9314/api/getPatients,717,0,0
+1768950828588,1467,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,456,341,2,21,http://localhost:9314/api/insurance_check,1465,0,0
+1768950828474,1583,Get All Patients,200,,Manage Patients Thread Group 2-2,text,true,,4729339,276,5,21,http://localhost:9314/api/getPatients,794,0,0
+1768950828113,1946,Check Insurance (External API),200,,External APIs Thread Group 4-2,text,true,,560,288,2,23,http://localhost:9314/api/insurance_check,1940,0,1
+1768950829316,743,Get CSRF Token,200,,Manage Patients Thread Group 2-1,text,true,,592,270,6,23,http://localhost:9314/auth/csrf,738,0,0
+1768950830058,18,Get CSRF Token,200,,Manage Patients Thread Group 2-2,text,true,,592,270,6,24,http://localhost:9314/auth/csrf,18,0,0
+1768950830066,147,Check Insurance (External API),200,,External APIs Thread Group 4-2,text,true,,485,341,3,28,http://localhost:9314/api/insurance_check,147,0,0
+1768950830077,145,Create Patient,201,,Manage Patients Thread Group 2-2,text,true,,671,633,7,28,http://localhost:9314/api/createPatient?verifyInsurance=false,145,0,0
+1768950828474,1749,Get All Patients,200,,Manage Patients Thread Group 2-3,text,true,,4729579,276,7,28,http://localhost:9314/api/getPatients,799,0,0
+1768950828423,877,Get All Patients,200,,View Patients Thread Group 1-2,text,true,,4728859,227,7,21,http://localhost:9314/api/getPatients,835,0,0
+1768950830065,162,Create Patient,201,,Manage Patients Thread Group 2-1,text,true,,671,633,7,28,http://localhost:9314/api/createPatient?verifyInsurance=false,162,0,0
+1768950830215,12,Check Insurance (External API),200,,External APIs Thread Group 4-2,text,true,,485,341,3,28,http://localhost:9314/api/insurance_check,12,0,0
+1768950830061,167,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,3,28,http://localhost:9314/api/insurance_check,167,0,16
+1768950830223,12,Get CSRF Token,200,,Manage Patients Thread Group 2-3,text,true,,592,270,7,28,http://localhost:9314/auth/csrf,12,0,0
+1768950830228,255,Check Insurance (External API),200,,External APIs Thread Group 4-2,text,true,,485,341,3,28,http://localhost:9314/api/insurance_check,255,0,0
+1768950830225,259,Get Patient by ID,200,,View Patients Thread Group 1-2,text,true,,656,242,9,28,http://localhost:9314/api/getPatient?patientId=53742,259,0,0
+1768950830229,258,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,3,28,http://localhost:9314/api/insurance_check,258,0,0
+1768950828510,1551,Get All Patients,200,,View Patients Thread Group 1-4,text,true,,4729579,227,7,23,http://localhost:9314/api/getPatients,795,0,0
+1768950828417,1670,Get All Patients,200,,View Patients Thread Group 1-3,text,true,,4728859,227,8,24,http://localhost:9314/api/getPatients,850,0,0
+1768950830235,754,Create Patient,201,,Manage Patients Thread Group 2-3,text,true,,671,633,8,31,http://localhost:9314/api/createPatient?verifyInsurance=false,754,0,0
+1768950828510,2277,Get All Patients,200,,View Patients Thread Group 1-1,text,true,,4729579,227,10,31,http://localhost:9314/api/getPatients,2230,0,0
+1768950828112,3103,Get All Patients,200,,Manage Patients Thread Group 2-4,text,true,,4729654,174,8,33,http://localhost:9314/api/getPatients,2743,0,1
+1768950830485,736,Check Insurance (External API),200,,External APIs Thread Group 4-2,text,true,,485,341,3,33,http://localhost:9314/api/insurance_check,736,0,0
+1768950830487,743,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,3,33,http://localhost:9314/api/insurance_check,743,0,0
+1768950831217,17,Get CSRF Token,200,,Manage Patients Thread Group 2-4,text,true,,661,221,8,33,http://localhost:9314/auth/csrf,17,0,0
+1768950830495,741,Get Patient by ID,200,,View Patients Thread Group 1-4,text,true,,656,242,11,33,http://localhost:9314/api/getPatient?patientId=53742,741,0,0
+1768950831232,8,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,3,33,http://localhost:9314/api/insurance_check,8,0,0
+1768950830228,1016,Get All Patients,200,,Manage Patients Thread Group 2-1,text,true,,4730059,276,8,33,http://localhost:9314/api/getPatients,762,0,0
+1768950831236,14,Create Patient,201,,Manage Patients Thread Group 2-4,text,true,,671,633,8,33,http://localhost:9314/api/createPatient?verifyInsurance=false,14,0,0
+1768950831242,14,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,3,33,http://localhost:9314/api/insurance_check,13,0,0
+1768950831245,11,Get CSRF Token,200,,Manage Patients Thread Group 2-1,text,true,,592,270,8,33,http://localhost:9314/auth/csrf,11,0,0
+1768950830223,1368,Get All Patients,200,,Manage Patients Thread Group 2-2,text,true,,4730059,276,9,34,http://localhost:9314/api/getPatients,1336,0,0
+1768950831592,36,Get CSRF Token,200,,Manage Patients Thread Group 2-2,text,true,,592,270,9,36,http://localhost:9314/auth/csrf,35,0,0
+1768950831010,627,Get Patient by ID,200,,View Patients Thread Group 1-1,text,true,,656,242,12,36,http://localhost:9314/api/getPatient?patientId=53742,627,0,0
+1768950831629,81,Create Patient,201,,Manage Patients Thread Group 2-2,text,true,,671,633,9,36,http://localhost:9314/api/createPatient?verifyInsurance=false,81,0,0
+1768950828096,3549,Get All Patients,200,,View Patients Thread Group 1-5,text,true,,4729654,174,12,36,http://localhost:9314/api/getPatients,3213,0,1
+1768950831222,1556,Check Insurance (External API),200,,External APIs Thread Group 4-2,text,true,,485,341,4,43,http://localhost:9314/api/insurance_check,1556,0,0
+1768950830503,2278,Get Patient by ID,200,,View Patients Thread Group 1-3,text,true,,656,242,14,43,http://localhost:9314/api/getPatient?patientId=53742,2278,0,0
+1768950831250,1623,Get All Patients,200,,Manage Patients Thread Group 2-4,text,true,,4730539,276,11,43,http://localhost:9314/api/getPatients,1599,0,0
+1768950832876,23,Get CSRF Token,200,,Manage Patients Thread Group 2-4,text,true,,592,270,11,43,http://localhost:9314/auth/csrf,23,0,0
+1768950830484,2379,Get All Patients,200,,View Patients Thread Group 1-2,text,true,,4730299,227,14,43,http://localhost:9314/api/getPatients,2129,0,0
+1768950828598,4381,Get All Patients,200,,View Patients Thread Group 1-6,text,true,,4730614,174,14,43,http://localhost:9314/api/getPatients,4253,0,1
+1768950828775,4230,Get All Patients,200,,Manage Patients Thread Group 2-5,text,true,,4730614,174,11,43,http://localhost:9314/api/getPatients,4082,0,6
+1768950833007,4,Get CSRF Token,200,,Manage Patients Thread Group 2-5,text,true,,661,221,11,43,http://localhost:9314/auth/csrf,4,0,0
+1768950830221,2795,Check Insurance (External API),200,,External APIs Thread Group 4-3,text,true,,560,288,4,43,http://localhost:9314/api/insurance_check,2795,0,6
+1768950830115,2906,Get All Patients,200,,View Patients Thread Group 1-9,text,true,,4730854,174,14,43,http://localhost:9314/api/getPatients,2873,0,112
+1768950831256,1802,Check Insurance (External API),200,,External APIs Thread Group 4-1,text,true,,485,341,4,43,http://localhost:9314/api/insurance_check,1802,0,0
+1768950833012,72,Create Patient,201,,Manage Patients Thread Group 2-5,text,true,,671,633,11,43,http://localhost:9314/api/createPatient?verifyInsurance=false,72,0,0
+1768950831256,1842,Create Patient,201,,Manage Patients Thread Group 2-1,text,true,,671,633,11,44,http://localhost:9314/api/createPatient?verifyInsurance=false,1842,0,0
+1768950831238,1979,Get All Patients,200,,View Patients Thread Group 1-4,text,true,,4730779,227,15,45,http://localhost:9314/api/getPatients,1882,0,0
+1768950830990,2381,Get All Patients,200,,Manage Patients Thread Group 2-3,text,true,,4730779,276,11,45,http://localhost:9314/api/getPatients,2254,0,0
+1768950833373,0,Get CSRF Token,200,,Manage Patients Thread Group 2-3,text,true,,592,270,11,45,http://localhost:9314/auth/csrf,0,0,0
+1768950830068,3543,Get All Patients,200,,Manage Patients Thread Group 2-6,text,true,,4731094,174,12,48,http://localhost:9314/api/getPatients,3325,0,5
+1768950830065,3452,Get All Patients,200,,View Patients Thread Group 1-8,text,true,,4730854,174,15,45,http://localhost:9314/api/getPatients,3304,0,8
+1768950833615,5,Get CSRF Token,200,,Manage Patients Thread Group 2-6,text,true,,661,221,12,48,http://localhost:9314/auth/csrf,5,0,0
+1768950830117,3706,Get All Patients,200,,Manage Patients Thread Group 2-7,text,true,,4731334,174,12,48,http://localhost:9314/api/getPatients,3650,0,111
+1768950833825,5,Get CSRF Token,200,,Manage Patients Thread Group 2-7,text,true,,661,221,12,48,http://localhost:9314/auth/csrf,4,0,0
+1768950831714,2145,Get Patient by ID,200,,View Patients Thread Group 1-5,text,true,,656,242,16,48,http://localhost:9314/api/getPatient?patientId=53742,2145,0,0
+1768950831638,2217,Get All Patients,200,,View Patients Thread Group 1-1,text,true,,4731259,227,16,48,http://localhost:9314/api/getPatients,2168,0,0
+1768950831710,2418,Get All Patients,200,,Manage Patients Thread Group 2-2,text,true,,4731259,276,13,52,http://localhost:9314/api/getPatients,2331,0,0
+1768950834130,7,Get CSRF Token,200,,Manage Patients Thread Group 2-2,text,true,,592,270,13,52,http://localhost:9314/auth/csrf,7,0,0
+1768950829100,5002,Get All Patients,200,,View Patients Thread Group 1-7,text,true,,4731334,174,17,49,http://localhost:9314/api/getPatients,4919,0,4
+1768950831439,30185,Get All Patients,401,,Manage Patients Thread Group 2-9,text,false,,578,174,15,60,http://localhost:9314/api/getPatients,30185,0,1
+1768950832116,30195,Get All Patients,401,,Manage Patients Thread Group 2-10,text,false,,578,174,14,59,http://localhost:9314/api/getPatients,30195,0,8
+1768950832610,30012,Get Bet Patients,401,,Bets Thread Group 3-14,text,false,,581,177,20,58,http://localhost:9314/api/getBetPatients,30012,0,4
+1768950832779,30010,Check Insurance (External API),500,,External APIs Thread Group 4-2,text,false,,463,341,5,57,http://localhost:9314/api/insurance_check,30010,0,0
+1768950832780,30011,Get All Patients,401,,Manage Patients Thread Group 2-11,text,false,,578,174,13,56,http://localhost:9314/api/getPatients,30011,0,1
+1768950832783,30010,Get All Patients,500,,View Patients Thread Group 1-3,text,false,,467,227,20,55,http://localhost:9314/api/getPatients,30010,0,0
+1768950830771,32063,Get All Patients,500,,Manage Patients Thread Group 2-8,text,false,,542,174,12,54,http://localhost:9314/api/getPatients,32063,0,1
+1768950832900,30015,Create Patient,400,,Manage Patients Thread Group 2-4,text,false,,464,633,11,53,http://localhost:9314/api/createPatient?verifyInsurance=false,30015,0,0
+1768950832920,30005,Get Patient by ID,500,,View Patients Thread Group 1-2,text,false,,466,242,19,52,http://localhost:9314/api/getPatient?patientId=53742,30005,0,0
+1768950831114,31879,Get Bet Patients,500,,Bets Thread Group 3-11,text,false,,542,177,19,51,http://localhost:9314/api/getBetPatients,31878,0,4
+1768950832992,30006,Get Patient by ID,500,,View Patients Thread Group 1-6,text,false,,466,242,18,50,http://localhost:9314/api/getPatient?patientId=53742,30006,0,0
+1768950833019,30024,Check Insurance (External API),500,,External APIs Thread Group 4-3,text,false,,463,341,4,49,http://localhost:9314/api/insurance_check,30024,0,0
+1768950833036,30008,Get Patient by ID,500,,View Patients Thread Group 1-9,text,false,,466,242,17,49,http://localhost:9314/api/getPatient?patientId=53742,30007,0,0
+1768950833059,30010,Check Insurance (External API),500,,External APIs Thread Group 4-1,text,false,,463,341,3,47,http://localhost:9314/api/insurance_check,30010,0,0
+1768950833086,30014,Get All Patients,500,,Manage Patients Thread Group 2-5,text,false,,467,276,10,46,http://localhost:9314/api/getPatients,30013,0,0
+1768950833099,30015,Get All Patients,500,,Manage Patients Thread Group 2-1,text,false,,467,276,9,45,http://localhost:9314/api/getPatients,30015,0,0
+1768950833099,30019,Get All Patients,401,,View Patients Thread Group 1-15,text,false,,578,174,16,44,http://localhost:9314/api/getPatients,30019,0,4
+1768950833115,30007,Get Bet Patients,401,,Bets Thread Group 3-15,text,false,,581,177,18,43,http://localhost:9314/api/getBetPatients,30007,0,0
+1768950830597,32636,Get All Patients,500,,View Patients Thread Group 1-10,text,false,,542,174,15,42,http://localhost:9314/api/getPatients,32636,0,3
+1768950833284,30019,Get Patient by ID,500,,View Patients Thread Group 1-4,text,false,,466,242,14,41,http://localhost:9314/api/getPatient?patientId=53742,30018,0,0
+1768950833374,30006,Create Patient,400,,Manage Patients Thread Group 2-3,text,false,,464,633,8,40,http://localhost:9314/api/createPatient?verifyInsurance=false,30006,0,0
+1768950833620,30068,Create Patient,400,,Manage Patients Thread Group 2-6,text,false,,464,633,7,39,http://localhost:9314/api/createPatient?verifyInsurance=false,30068,0,0
+1768950833559,30130,Get All Patients,401,,Manage Patients Thread Group 2-12,text,false,,578,174,7,39,http://localhost:9314/api/getPatients,30129,0,2
+1768950833617,30071,Get Bet Patients,401,,Bets Thread Group 3-16,text,false,,581,177,17,39,http://localhost:9314/api/getBetPatients,30070,0,1
+1768950833619,30092,Get Patient by ID,500,,View Patients Thread Group 1-8,text,false,,466,242,13,36,http://localhost:9314/api/getPatient?patientId=53742,30091,0,0
+1768950833614,30097,Get All Patients,401,,View Patients Thread Group 1-16,text,false,,578,174,13,36,http://localhost:9314/api/getPatients,30096,0,1
+1768950831607,32139,Get Bet Patients,500,,Bets Thread Group 3-12,text,false,,542,177,16,34,http://localhost:9314/api/getBetPatients,32139,0,5
+1768950831602,32151,Get All Patients,500,,View Patients Thread Group 1-12,text,false,,542,174,11,33,http://localhost:9314/api/getPatients,32151,0,2
+1768950831108,32671,Get All Patients,500,,View Patients Thread Group 1-11,text,false,,542,174,10,32,http://localhost:9314/api/getPatients,32671,0,3
+1768950833831,30014,Create Patient,400,,Manage Patients Thread Group 2-7,text,false,,464,633,5,31,http://localhost:9314/api/createPatient?verifyInsurance=false,30013,0,0
+1768950833860,30019,Get All Patients,500,,View Patients Thread Group 1-5,text,false,,467,227,9,30,http://localhost:9314/api/getPatients,30018,0,0
+1768950833879,30051,Get Patient by ID,500,,View Patients Thread Group 1-1,text,false,,466,242,8,29,http://localhost:9314/api/getPatient?patientId=53742,30051,0,0
+1768950834137,30046,Create Patient,400,,Manage Patients Thread Group 2-2,text,false,,464,633,4,28,http://localhost:9314/api/createPatient?verifyInsurance=false,30045,0,0
+1768950834111,30109,Get All Patients,401,,Manage Patients Thread Group 2-13,text,false,,578,174,3,27,http://localhost:9314/api/getPatients,30109,0,8
+1768950834126,30094,Check Insurance (External API),401,,External APIs Thread Group 4-5,text,false,,582,288,2,26,http://localhost:9314/api/insurance_check,30094,0,1
+1768950834170,30050,Get Patient by ID,500,,View Patients Thread Group 1-7,text,false,,466,242,7,27,http://localhost:9314/api/getPatient?patientId=53742,30049,0,0
+1768950834114,30107,Get Bet Patients,401,,Bets Thread Group 3-17,text,false,,581,177,15,24,http://localhost:9314/api/getBetPatients,30107,0,5
+1768950834102,30272,Get All Patients,500,,View Patients Thread Group 1-17,text,false,,542,174,6,23,http://localhost:9314/api/getPatients,30271,0,2
+1768950832114,32332,Get All Patients,500,,View Patients Thread Group 1-13,text,false,,542,174,5,22,http://localhost:9314/api/getPatients,32332,0,10
+1768950832115,32354,Check Insurance (External API),500,,External APIs Thread Group 4-4,text,false,,538,288,1,21,http://localhost:9314/api/insurance_check,32354,0,4
+1768950832279,32213,Get Bet Patients,500,,Bets Thread Group 3-13,text,false,,542,177,14,20,http://localhost:9314/api/getBetPatients,32213,0,10
+1768950832599,31938,Get All Patients,500,,View Patients Thread Group 1-14,text,false,,542,174,4,19,http://localhost:9314/api/getPatients,31938,0,4
+1768950834596,30007,Get All Patients,401,,View Patients Thread Group 1-18,text,false,,578,174,3,18,http://localhost:9314/api/getPatients,30007,0,0
+1768950834609,30006,Get Bet Patients,401,,Bets Thread Group 3-18,text,false,,581,177,13,17,http://localhost:9314/api/getBetPatients,30005,0,1
+1768950834773,30007,Get All Patients,401,,Manage Patients Thread Group 2-14,text,false,,578,174,2,16,http://localhost:9314/api/getPatients,30007,0,1
+1768950835097,30005,Get All Patients,401,,View Patients Thread Group 1-19,text,false,,578,174,2,15,http://localhost:9314/api/getPatients,30005,0,0
+1768950835111,30005,Get Bet Patients,401,,Bets Thread Group 3-19,text,false,,581,177,12,14,http://localhost:9314/api/getBetPatients,30005,0,1
+1768950835441,30008,Get All Patients,401,,Manage Patients Thread Group 2-15,text,false,,578,174,1,13,http://localhost:9314/api/getPatients,30008,0,1
+1768950835595,30006,Get All Patients,401,,View Patients Thread Group 1-20,text,false,,578,174,1,12,http://localhost:9314/api/getPatients,30006,0,1
+1768950835611,30005,Get Bet Patients,401,,Bets Thread Group 3-20,text,false,,581,177,11,11,http://localhost:9314/api/getBetPatients,30005,0,0

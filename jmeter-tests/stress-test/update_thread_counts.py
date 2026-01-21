@@ -26,16 +26,15 @@ def update_thread_counts(xml_file, view_users, manage_users, bets_users, ext_use
             num_threads_elem = thread_group.find('intProp[@name="ThreadGroup.num_threads"]')
             if num_threads_elem is not None:
                 num_threads_elem.text = str(thread_groups[name])
-            
-            # Update ramp_time
-            ramp_time_elem = thread_group.find('intProp[@name="ThreadGroup.ramp_time"]')
-            if ramp_time_elem is not None:
-                ramp_time_elem.text = str(ramp_up)
-            
-            # Update duration
-            duration_elem = thread_group.find('longProp[@name="ThreadGroup.duration"]')
-            if duration_elem is not None:
-                duration_elem.text = str(duration)
+        
+        # Update ramp_time and duration for ALL thread groups
+        ramp_time_elem = thread_group.find('intProp[@name="ThreadGroup.ramp_time"]')
+        if ramp_time_elem is not None:
+            ramp_time_elem.text = str(ramp_up)
+        
+        duration_elem = thread_group.find('longProp[@name="ThreadGroup.duration"]')
+        if duration_elem is not None:
+            duration_elem.text = str(duration)
     
     # Write back
     tree.write(xml_file, encoding='UTF-8', xml_declaration=True)

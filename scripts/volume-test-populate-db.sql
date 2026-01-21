@@ -20,6 +20,7 @@ DECLARE
     analysis_patient_id INTEGER;
     analysis_bet_id INTEGER;
     created_analysis_id INTEGER;
+    db_size TEXT;
 BEGIN
     RAISE NOTICE '=== Начало наполнения БД для Volume Testing ===';
     start_time := clock_timestamp();
@@ -176,6 +177,8 @@ BEGIN
     RAISE NOTICE 'Всего визитов: %', (SELECT COUNT(*) FROM visits);
     RAISE NOTICE 'Всего ставок: %', (SELECT COUNT(*) FROM bets);
     RAISE NOTICE 'Всего анализов: %', (SELECT COUNT(*) FROM patient_analysis);
+    SELECT pg_size_pretty(pg_database_size(current_database())) INTO db_size;
+    RAISE NOTICE 'Размер БД: %', db_size;
     
 END $$;
 
