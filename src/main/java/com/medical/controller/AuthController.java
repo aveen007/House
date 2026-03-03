@@ -8,9 +8,8 @@ import com.medical.exception.ResourceNotFoundException;
 import com.medical.repository.PatientRepository;
 import com.medical.repository.RoleRepository;
 import com.medical.repository.UserRepository;
+import com.medical.security.JwtUtil;
 import com.medical.security.UserPrincipal;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,8 +23,9 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
+
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
@@ -46,25 +46,44 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // =========================
+    // LOGIN (JWT ISSUED HERE)
+    // =========================
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
+                new UsernamePasswordAuthenticationToken(
+                        request.getUsername(),
+                        request.getPassword()
+                )
         );
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+
+        // 🔐 JWT creation
+        String token = JwtUtil.generateToken(
+                principal.getUserId(),
+                principal.getUsername(),
+                principal.getRoles()
+        );
 
         AuthResponse response = new AuthResponse();
         response.setUserId(principal.getUserId());
         response.setUsername(principal.getUsername());
         response.setPatientId(principal.getPatientId());
         response.setRoles(principal.getRoles());
+        response.setToken(token);
+
         return ResponseEntity.ok(response);
     }
 
+    // =========================
+    // REGISTER (UNCHANGED)
+    // =========================
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
+
         if (userRepository.findByUsername(request.getUsername()).isPresent()) {
             return ResponseEntity.badRequest().build();
         }
@@ -95,31 +114,36 @@ public class AuthController {
         response.setUsername(saved.getUsername());
         response.setPatientId(saved.getPatientId());
         response.setRoles(Set.of(roleName));
+
         return ResponseEntity.status(201).body(response);
     }
 
+    // =========================
+    // LOGOUT (JWT: CLIENT SIDE)
+    // =========================
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(HttpServletRequest request) {
-        SecurityContextHolder.clearContext();
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
+    public ResponseEntity<Void> logout() {
+        // JWT is stateless — client deletes token
         return ResponseEntity.noContent().build();
     }
 
+    // =========================
+    // ME (JWT-BASED)
+    // =========================
     @GetMapping("/me")
-    public ResponseEntity<AuthResponse> me() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !(authentication.getPrincipal() instanceof UserPrincipal)) {
+    public ResponseEntity<AuthResponse> me(Authentication authentication) {
+
+        if (authentication == null ||
+                !(authentication.getPrincipal() instanceof UserPrincipal principal)) {
             return ResponseEntity.status(401).build();
         }
-        UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
+
         AuthResponse response = new AuthResponse();
         response.setUserId(principal.getUserId());
         response.setUsername(principal.getUsername());
         response.setPatientId(principal.getPatientId());
         response.setRoles(Set.copyOf(principal.getRoles()));
+
         return ResponseEntity.ok(response);
     }
 }

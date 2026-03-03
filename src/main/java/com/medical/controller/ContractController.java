@@ -35,13 +35,13 @@ public class ContractController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN','STAFF','LAWYER')")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','LAWYER','PATIENT')")
     public ContractResponse createContract(@RequestBody ContractCreateRequest req) {
         return contractService.createContract(req);
     }
 
     @PutMapping("/{contractId}")
-    @PreAuthorize("hasAnyRole('ADMIN','STAFF','LAWYER')")
+    @PreAuthorize("hasAnyRole('ADMIN','STAFF','LAWYER','PATIENT')")
     public ContractResponse saveContract(@PathVariable Integer contractId, @RequestBody ContractSaveRequest req) {
         return contractService.saveContract(contractId, req);
     }

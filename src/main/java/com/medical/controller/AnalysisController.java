@@ -127,7 +127,7 @@ public class AnalysisController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/updatePatientAnalysisStatus")
-    @PreAuthorize("hasAnyRole('ADMIN','HEAD_DOCTOR')")
+    @PreAuthorize("hasAnyRole('ADMIN','HEAD_DOCTOR', 'PATIENT')")
     public ResponseEntity<?> updatePatientAnalysisStatus(
             @RequestParam Integer patientAnalysisId,
             @Valid @RequestBody AnalysisStatus status) {

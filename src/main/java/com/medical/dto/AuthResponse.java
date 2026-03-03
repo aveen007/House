@@ -7,7 +7,18 @@ public class AuthResponse {
     private String username;
     private Integer patientId;
     private Set<String> roles;
+    private String token;  // Field is here
 
+    // Getters and setters for token
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    // Other getters and setters...
     public Integer getUserId() {
         return userId;
     }
